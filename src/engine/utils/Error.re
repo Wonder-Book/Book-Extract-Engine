@@ -1,0 +1,1 @@
+let error = msg => Js.Exn.raiseError(msg) |> ignore;
