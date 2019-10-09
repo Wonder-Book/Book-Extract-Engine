@@ -34,6 +34,19 @@ let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
   | _ => (vertexBuffer |> Option.unsafeGet, indexBuffer |> Option.unsafeGet)
   };
 
+let _initVBOs = (gl, state) =>
+  GameObject.getGameObjectDataArr(state)
+  |> Js.Array.map(
+       ({transformData, geometryData, materialData} as gameObjectData) =>
+       {
+         ...gameObjectData,
+         geometryData:
+           _getOrCreateVBOs(geometryData, gl)
+           |> GameObject.Geometry.setBufferts(_, geometryData),
+       }
+     )
+  |> GameObject.setGameObjectDataArr(_, state);
+
 let _getProgram = ({shaderName}, state) =>
   Shader.Program.unsafeGetProgram(shaderName, state);
 
@@ -41,7 +54,8 @@ let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
   gameObjectDataArr
   |> Js.Array.map(
        ({transformData, geometryData, materialData} as gameObjectData) => {
-       let (vertexBuffer, indexBuffer) = _getOrCreateVBOs(geometryData, gl);
+       let (vertexBuffer, indexBuffer) =
+         GameObject.Geometry.unsafeGetBuffers(geometryData);
 
        {
          mMatrix: GameObject.Transform.getMMatrix(transformData),
@@ -98,6 +112,8 @@ let render = (gl, state) => {
     Camera.unsafeGetVMatrix(state),
     Camera.unsafeGetPMatrix(state),
   );
+
+  let state = _initVBOs(gl, state);
 
   _changeGameObjectDataArrToRenderDataArr(
     GameObject.getGameObjectDataArr(state),

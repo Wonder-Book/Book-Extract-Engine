@@ -18,10 +18,14 @@ let loop = state => {
     Render.render(gl, state);
   };
 
-  let rec _loop = state =>
-    DomExtend.requestAnimationFrame((time: float) =>
-      Data.unsafeGetState() |> _loopBody |> _loop |> ignore
-    );
+  let rec _loop = () =>
+    DomExtend.requestAnimationFrame((time: float) => {
+      Data.unsafeGetState() |> _loopBody |> Data.setState |> ignore;
 
-  Data.setState(state) |> _loop |> ignore;
+      _loop() |> ignore;
+    });
+
+  Data.setState(state) |> ignore;
+
+  _loop();
 };

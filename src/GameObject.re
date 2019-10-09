@@ -41,6 +41,18 @@ module Geometry = {
     vertexBuffer,
     indexBuffer,
   );
+
+  let unsafeGetBuffers = ({vertexBuffer, indexBuffer}) => (
+    vertexBuffer |> Option.unsafeGet,
+    indexBuffer |> Option.unsafeGet,
+  );
+
+  let setBufferts = ((vertexBuffer, indexBuffer), geometryData) => {
+    ...geometryData,
+    vertexBuffer: Some(vertexBuffer),
+    indexBuffer: Some(indexBuffer),
+  };
+
   /* let getIndexBuffer = (geometryData) => geometryData.indexBuffer; */
 
   let getIndices = ({indices}) => indices;
@@ -53,5 +65,12 @@ module Material = {
 };
 
 let getGameObjectDataArr = state => state.allGameObjectData.gameObjectDataArr;
+
+let setGameObjectDataArr = (gameObjectDataArr, state) => {
+  ...state,
+  allGameObjectData: {
+    gameObjectDataArr: gameObjectDataArr,
+  },
+};
 
 let createAllGameObjectData = () => {gameObjectDataArr: [||]};
