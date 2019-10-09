@@ -48,6 +48,7 @@ module Program = {
     );
 };
 
+
 let _compileShader = (gl, glslSource: string, shader) => {
   Gl.shaderSource(shader, glslSource, gl);
   Gl.compileShader(shader, gl);

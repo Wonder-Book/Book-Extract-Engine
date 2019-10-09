@@ -13,11 +13,6 @@ use state to store data
 provide api for user to operate it
 
 
-/*
-package engine to one dist file;
-import it in html page;
-*/
-
 
 ## user logic
 1.device logic
@@ -82,5 +77,22 @@ Immutable/MutableHashMap
 ...
 
 
-////# begin move logic from demo->Main to engine
 
+
+
+## use engine
+
+- use by import es6 module
+    - use reason
+    - use js
+
+
+
+- use single engine js
+
+1.extract api
+2.generate index
+move to npm(e.g. wonder-generate-index)
+3.package engine to one dist file;
+4.import it in html page;
+5.invoke api to run

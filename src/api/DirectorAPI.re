@@ -1,4 +1,4 @@
-let init = (contextParam, state) =>
+let initAll = (contextParam, state) =>
   state
   |> DeviceManager.setGl(
        Gl.getWebgl1Context(View.unsafeGetCanvas(state), contextParam),

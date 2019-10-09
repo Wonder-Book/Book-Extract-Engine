@@ -14,14 +14,6 @@ let unsafeGetGl = state => state.deviceManagerData.gl |> Option.unsafeGet;
 
 let getClearColor = state => state.deviceManagerData.clearColor;
 
-let setClearColor = (clearColor, state) => {
-  ...state,
-  deviceManagerData: {
-    ...state.deviceManagerData,
-    clearColor,
-  },
-};
-
 let clearColor = (gl, state) => {
   let (r, g, b, a) = getClearColor(state);
 
