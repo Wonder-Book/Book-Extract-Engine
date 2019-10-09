@@ -8,6 +8,8 @@ let initAll = (contextParam, state) =>
 let loopBody = state => {
   let gl = DeviceManager.unsafeGetGl(state);
 
+  DeviceManager.clearColor(gl, state);
+
   Gl.clear(Gl.getColorBufferBit(gl) lor Gl.getDepthBufferBit(gl), gl);
 
   DeviceManager.initGlState(gl);
@@ -23,10 +25,6 @@ let rec _loop = () =>
   });
 
 let loop = state => {
-  let gl = DeviceManager.unsafeGetGl(state);
-
-  DeviceManager.clearColor(gl, state);
-
   Data.setState(state) |> ignore;
 
   _loop();
