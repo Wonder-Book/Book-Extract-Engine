@@ -59,9 +59,9 @@ module Geometry = {
 };
 
 module Material = {
-  let createMaterialData = (shaderName, color) => {shaderName, color};
+  let createMaterialData = (shaderName, colors) => {shaderName, colors};
 
-  let getColor = ({color}) => color;
+  let getColors = ({colors}) => colors;
 };
 
 let getGameObjectDataArr = state => state.allGameObjectData.gameObjectDataArr;

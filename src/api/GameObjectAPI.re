@@ -3,7 +3,7 @@ open DataType;
 let createTriangleGeometryData = GameObject.Geometry.createTriangleGeometryData;
 
 let addGameObjectData =
-    (mMatrix, (vertices, indices), (shaderName, color), state) =>
+    (mMatrix, (vertices, indices), (shaderName, colors), state) =>
   GameObject.setGameObjectDataArr(
     GameObject.getGameObjectDataArr(state)
     |> ArrayUtils.push({
@@ -14,7 +14,7 @@ let addGameObjectData =
              indices,
            ),
          materialData:
-           GameObject.Material.createMaterialData(shaderName, color),
+           GameObject.Material.createMaterialData(shaderName, colors),
        }),
     state,
   );

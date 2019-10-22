@@ -15,7 +15,6 @@ type programData = {
   programMap: ImmutableHashMap.t2(shaderName, GlType.program),
 };
 
-
 type geometryData = {
   vertices: Js.Typed_array.Float32Array.t,
   indices: Js.Typed_array.Uint16Array.t,
@@ -27,7 +26,7 @@ type transformData = {mMatrix: MatrixType.matrix};
 
 type materialData = {
   shaderName,
-  color: (float, float, float),
+  colors: array((float, float, float)),
 };
 
 type gameObjectData = {

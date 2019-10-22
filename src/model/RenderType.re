@@ -3,6 +3,6 @@ type renderData = {
   vertexBuffer: GlType.buffer,
   indexBuffer: GlType.buffer,
   indexCount: int,
-  color: (float, float, float),
+  colors: array((float, float, float)),
   program: GlType.program,
 };

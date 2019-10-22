@@ -64,7 +64,7 @@ let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
          indexCount:
            GameObject.Geometry.getIndices(geometryData)
            |> Js.Typed_array.Uint16Array.length,
-         color: GameObject.Material.getColor(materialData),
+         colors: GameObject.Material.getColors(materialData),
          program: _getProgram(materialData, state),
        };
      });
@@ -97,14 +97,18 @@ let _sendCameraUniformData = ((vMatrix, pMatrix), program, gl) => {
   Gl.uniformMatrix4fv(pMatrixLocation, false, pMatrix, gl);
 };
 
-let _sendModelUniformData = ((mMatrix, color), program, gl) => {
+let _sendModelUniformData = ((mMatrix, colors), program, gl) => {
   let mMatrixLocation = Gl.getUniformLocation(program, "u_mMatrix", gl);
-  let colorLocation = Gl.getUniformLocation(program, "u_color", gl);
 
-  let (r, g, b) = color;
+  colors
+  |> Js.Array.forEachi(((r, g, b), index) => {
+       let colorLocation =
+         Gl.getUniformLocation(program, {j|u_color$index|j}, gl);
+
+       Gl.uniform3f(colorLocation, r, g, b, gl);
+     });
 
   Gl.uniformMatrix4fv(mMatrixLocation, false, mMatrix, gl);
-  Gl.uniform3f(colorLocation, r, g, b, gl);
 };
 
 let render = (gl, state) => {
@@ -121,14 +125,14 @@ let render = (gl, state) => {
     state,
   )
   |> Js.Array.forEach(
-       ({mMatrix, vertexBuffer, indexBuffer, indexCount, color, program}) => {
+       ({mMatrix, vertexBuffer, indexBuffer, indexCount, colors, program}) => {
        Gl.useProgram(program, gl);
 
        _sendAttributeData(vertexBuffer, program, gl);
 
        _sendCameraUniformData((vMatrix, pMatrix), program, gl);
 
-       _sendModelUniformData((mMatrix, color), program, gl);
+       _sendModelUniformData((mMatrix, colors), program, gl);
 
        Gl.bindBuffer(Gl.getElementArrayBuffer(gl), indexBuffer, gl);
 
