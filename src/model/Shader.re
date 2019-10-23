@@ -58,7 +58,7 @@ let _compileShader = (gl, glslSource: string, shader) => {
     {
       let message = Gl.getShaderInfoLog(shader, gl);
 
-      Error.error(
+      Error.raiseError(
         {j|shader info log: $message
         glsl source: $glslSource
         |j},
@@ -77,7 +77,7 @@ let _linkProgram = (program, gl) => {
     {
       let message = Gl.getProgramInfoLog(program, gl);
 
-      Error.error({j|link program error: $message|j});
+      Error.raiseError({j|link program error: $message|j});
     } :
     ();
 };

@@ -1,5 +1,5 @@
-let error = msg => Js.Exn.raiseError(msg) |> ignore;
+let raiseError = msg => Js.Exn.raiseError(msg) |> ignore;
 
-let throw: Js.Exn.t => unit = [%raw err => {|
+let throwError: Js.Exn.t => unit = [%raw err => {|
 throw err;
 |}];

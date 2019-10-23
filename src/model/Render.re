@@ -87,7 +87,7 @@ let _sendAttributeData = (vertexBuffer, program, gl) => {
   let positionLocation = Gl.getAttribLocation(program, "a_position", gl);
 
   positionLocation === (-1) ?
-    Error.error({j|Failed to get the storage location of a_position|j}) : ();
+    Error.raiseError({j|Failed to get the storage location of a_position|j}) : ();
 
   Gl.bindBuffer(Gl.getArrayBuffer(gl), vertexBuffer, gl);
 
