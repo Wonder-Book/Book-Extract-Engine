@@ -70,8 +70,7 @@ let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
        {
          mMatrix:
            GameObject.Transform.getMMatrix(transformData)
-           |> CoordinateTransformationMatrix.Model.value
-           |> Matrix.value,
+           |> CoordinateTransformationMatrix.Model.getMatrixValue,
          vertexBuffer: vertexBuffer |> VBO.VertexBuffer.value,
          indexBuffer: indexBuffer |> VBO.IndexBuffer.value,
          indexCount:
@@ -132,8 +131,8 @@ let render = (gl, state) => {
     Camera.unsafeGetPMatrix(state),
   );
   let (vMatrix, pMatrix) = (
-    vMatrix |> CoordinateTransformationMatrix.View.value |> Matrix.value,
-    pMatrix |> CoordinateTransformationMatrix.Projection.value |> Matrix.value,
+    vMatrix |> CoordinateTransformationMatrix.View.getMatrixValue,
+    pMatrix |> CoordinateTransformationMatrix.Projection.getMatrixValue,
   );
 
   let state = _initVBOs(gl, state);
