@@ -1,30 +1,29 @@
 type deviceManagerData = {
   gl: option(Gl.webgl1Context),
-  clearColor: (float, float, float, float),
+  clearColor: Color.Color4.t,
 };
 
-type shaderName = string;
+type glslData = {
+  glslMap:
+    ImmutableHashMap.t2(ShaderWT.shaderName, (GLSLWT.VS.t, GLSLWT.FS.t)),
+};
 
-type vs = string;
-
-type fs = string;
-
-type glslData = {glslMap: ImmutableHashMap.t2(shaderName, (vs, fs))};
-
-type programData = {programMap: ImmutableHashMap.t2(shaderName, Gl.program)};
+type programData = {
+  programMap: ImmutableHashMap.t2(ShaderWT.shaderName, Gl.program),
+};
 
 type geometryData = {
-  vertices: Js.Typed_array.Float32Array.t,
-  indices: Js.Typed_array.Uint16Array.t,
-  vertexBuffer: option(Gl.buffer),
-  indexBuffer: option(Gl.buffer),
+  vertices: GeometryPoints.Vertices.t,
+  indices: GeometryPoints.Indices.t,
+  vertexBuffer: option(VBO.VertexBuffer.t),
+  indexBuffer: option(VBO.IndexBuffer.t),
 };
 
-type transformData = {mMatrix: MatrixType.matrix};
+type transformData = {mMatrix: CoordinateTransformationMatrix.Model.t};
 
 type materialData = {
-  shaderName,
-  colors: array((float, float, float)),
+  shaderName: ShaderWT.shaderName,
+  colors: array(Color.Color3.t),
 };
 
 type gameObjectData = {
@@ -36,8 +35,8 @@ type gameObjectData = {
 type allGameObjectData = {gameObjectDataArr: array(gameObjectData)};
 
 type cameraData = {
-  vMatrix: option(MatrixType.matrix),
-  pMatrix: option(MatrixType.matrix),
+  vMatrix: option(CoordinateTransformationMatrix.View.t),
+  pMatrix: option(CoordinateTransformationMatrix.Projection.t),
 };
 
 type canvas = DomExtend.htmlElement;

@@ -15,7 +15,8 @@ module GLSL = {
 
   let addGLSL = (shaderName, glslData, state) =>
     _setGLSLMap(
-      _getGLSLMap(state) |> ImmutableHashMap.set(shaderName, glslData),
+      _getGLSLMap(state)
+      |> ImmutableHashMap.set(ShaderWT.value(shaderName), glslData),
       state,
     );
 
@@ -47,7 +48,6 @@ module Program = {
       state,
     );
 };
-
 
 let _compileShader = (gl, glslSource: string, shader) => {
   Gl.shaderSource(shader, glslSource, gl);
@@ -140,12 +140,21 @@ let _initShader = (vsSource: string, fsSource: string, gl, program) => {
   program;
 };
 
+let _changeGLSLDataArrToInitShaderDataArr = glslDataArr =>
+  glslDataArr
+  |> Js.Array.map(((shaderName, (vs, fs))) =>
+       (
+         {shaderName, vs: GLSLWT.VS.value(vs), fs: GLSLWT.FS.value(fs)}: InitShaderDataType.initShaderData
+       )
+     );
+
 let init = state => {
   let gl = DeviceManager.unsafeGetGl(state);
 
   GLSL.getAllValidGLSLEntries(state)
+  |> _changeGLSLDataArrToInitShaderDataArr
   |> ArrayWT.reduceOneParam(
-       (. state, (shaderName, (vs, fs))) =>
+       (. state, {shaderName, vs, fs}: InitShaderDataType.initShaderData) =>
          Program.setProgram(
            shaderName,
            gl |> Program.createProgram |> _initShader(vs, fs, gl),

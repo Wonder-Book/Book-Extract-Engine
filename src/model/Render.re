@@ -1,6 +1,6 @@
 open DataType;
 
-open RenderType;
+open RenderDataType;
 
 let _createVBOs = ((vertices, indices), gl) => {
   let vertexBuffer = Gl.createBuffer(gl);
@@ -25,12 +25,22 @@ let _createVBOs = ((vertices, indices), gl) => {
     gl,
   );
 
-  (vertexBuffer, indexBuffer);
+  (
+    vertexBuffer |> VBO.VertexBuffer.create,
+    indexBuffer |> VBO.IndexBuffer.create,
+  );
 };
 
 let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
   switch (vertexBuffer, indexBuffer) {
-  | (None, None) => _createVBOs((vertices, indices), gl)
+  | (None, None) =>
+    _createVBOs(
+      (
+        vertices |> GeometryPoints.Vertices.value,
+        indices |> GeometryPoints.Indices.value,
+      ),
+      gl,
+    )
   | _ => (vertexBuffer |> Option.unsafeGet, indexBuffer |> Option.unsafeGet)
   };
 
@@ -48,7 +58,7 @@ let _initVBOs = (gl, state) =>
   |> GameObject.setGameObjectDataArr(_, state);
 
 let _getProgram = ({shaderName}, state) =>
-  Shader.Program.unsafeGetProgram(shaderName, state);
+  Shader.Program.unsafeGetProgram(shaderName |> ShaderWT.value, state);
 
 let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
   gameObjectDataArr
@@ -58,13 +68,18 @@ let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
          GameObject.Geometry.unsafeGetBuffers(geometryData);
 
        {
-         mMatrix: GameObject.Transform.getMMatrix(transformData),
-         vertexBuffer,
-         indexBuffer,
+         mMatrix:
+           GameObject.Transform.getMMatrix(transformData)
+           |> CoordinateTransformationMatrix.Model.value
+           |> Matrix.value,
+         vertexBuffer: vertexBuffer |> VBO.VertexBuffer.value,
+         indexBuffer: indexBuffer |> VBO.IndexBuffer.value,
          indexCount:
            GameObject.Geometry.getIndices(geometryData)
-           |> Js.Typed_array.Uint16Array.length,
-         colors: GameObject.Material.getColors(materialData),
+           |> GeometryPoints.Indices.length,
+         colors:
+           GameObject.Material.getColors(materialData)
+           |> Js.Array.map(color => color |> Color.Color3.value),
          program: _getProgram(materialData, state),
        };
      });
@@ -115,6 +130,10 @@ let render = (gl, state) => {
   let (vMatrix, pMatrix) = (
     Camera.unsafeGetVMatrix(state),
     Camera.unsafeGetPMatrix(state),
+  );
+  let (vMatrix, pMatrix) = (
+    vMatrix |> CoordinateTransformationMatrix.View.value |> Matrix.value,
+    pMatrix |> CoordinateTransformationMatrix.Projection.value |> Matrix.value,
   );
 
   let state = _initVBOs(gl, state);

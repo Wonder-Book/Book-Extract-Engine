@@ -1,5 +1,5 @@
 type renderData = {
-  mMatrix: MatrixType.matrix,
+  mMatrix: Js.Typed_array.Float32Array.t,
   vertexBuffer: Gl.buffer,
   indexBuffer: Gl.buffer,
   indexCount: int,

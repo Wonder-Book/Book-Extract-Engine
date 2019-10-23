@@ -12,7 +12,7 @@ let addGameObjectData = GameObjectAPI.addGameObjectData;
 
 let createTriangleGeometryData = GameObjectAPI.createTriangleGeometryData;
 
-let createIdentityMatrix4 = MatrixAPI.createIdentityMatrix4;
+let createIdentityMatrix = MatrixAPI.createIdentityMatrix;
 
 let setLookAt = MatrixAPI.setLookAt;
 

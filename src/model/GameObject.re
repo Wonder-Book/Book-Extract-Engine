@@ -21,9 +21,11 @@ module Geometry = {
         0.5,
         (-0.5),
         0.0,
-      |]);
+      |])
+      |> GeometryPoints.Vertices.create;
 
-    let indices = Uint16Array.make([|0, 1, 2|]);
+    let indices =
+      Uint16Array.make([|0, 1, 2|]) |> GeometryPoints.Indices.create;
 
     (vertices, indices);
   };

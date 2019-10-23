@@ -1,9 +1,9 @@
 open DataType;
 
-let setClearColor = (clearColor, state) => {
+let setClearColor = ((r, g, b, a), state) => {
   ...state,
   deviceManagerData: {
     ...state.deviceManagerData,
-    clearColor,
+    clearColor: Color.Color4.create(r, g, b, a),
   },
 };
