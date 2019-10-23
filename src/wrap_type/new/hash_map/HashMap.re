@@ -5,8 +5,8 @@ let unsafeGet = (key: string, map) =>
 
 /* TODO move to NullService */
 let _isEmpty = value =>
-  value === Obj.magic(Js.Nullable.null)
-  || value === Obj.magic(Js.Nullable.undefined);
+  value === ObjMagic.convertToMagicType(Js.Nullable.null)
+  || value === ObjMagic.convertToMagicType(Js.Nullable.undefined);
 
 let get = (key: string, map) => {
   let value = unsafeGet(key, map);
@@ -41,10 +41,10 @@ let getValidEntries =
   |> HashMapType.entriesNullableToEntriesNotNullable;
 
 /* let getValidValues = map =>
-  map
-  |> Js.Dict.values
-  |> Js.Array.filter(value => value |> _isInMap)
-  |> HashMapType.arrayNullableToArrayNotNullable; */
+   map
+   |> Js.Dict.values
+   |> Js.Array.filter(value => value |> _isInMap)
+   |> HashMapType.arrayNullableToArrayNotNullable; */
 
 let _mutableSet = (key: string, value, map) => {
   Js.Dict.set(map, key, value);
