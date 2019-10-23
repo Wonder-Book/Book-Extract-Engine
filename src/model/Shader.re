@@ -144,7 +144,7 @@ let init = state => {
   let gl = DeviceManager.unsafeGetGl(state);
 
   GLSL.getAllValidGLSLEntries(state)
-  |> ArrayUtils.reduceOneParam(
+  |> ArrayWT.reduceOneParam(
        (. state, (shaderName, (vs, fs))) =>
          Program.setProgram(
            shaderName,

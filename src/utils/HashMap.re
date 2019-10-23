@@ -57,7 +57,7 @@ let copy =
     (map: Js.Dict.t(Js.Nullable.t('a))): Js.Dict.t(Js.Nullable.t('a)) =>
   map
   |> entries
-  |> ArrayUtils.reduceOneParam(
+  |> ArrayWT.reduceOneParam(
        (. newMap, (key, value)) => newMap |> _mutableSet(key, value),
        _createEmpty(),
      )

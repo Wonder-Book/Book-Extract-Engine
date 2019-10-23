@@ -6,7 +6,7 @@ let addGameObjectData =
     (mMatrix, (vertices, indices), (shaderName, colors), state) =>
   GameObject.setGameObjectDataArr(
     GameObject.getGameObjectDataArr(state)
-    |> ArrayUtils.push({
+    |> ArrayWT.push({
          transformData: GameObject.Transform.createTransformData(mMatrix),
          geometryData:
            GameObject.Geometry.createGeometryDataWithGeometryPoints(

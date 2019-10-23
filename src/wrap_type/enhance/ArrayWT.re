@@ -1,6 +1,3 @@
-/*! named ArrayUtils instead of Array is to avoid to conflict with the bucklescript->array
- */
-
 let push = (item, arr) => {
   arr |> Js.Array.push(item) |> ignore;
   arr;
