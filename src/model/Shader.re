@@ -148,18 +148,24 @@ let _changeGLSLDataArrToInitShaderDataArr = glslDataArr =>
        )
      );
 
-let init = state => {
+let init = (state: DataType.state): Result.t(DataType.state, Js.Exn.t) => {
   let gl = DeviceManager.unsafeGetGl(state);
 
   GLSL.getAllValidGLSLEntries(state)
   |> _changeGLSLDataArrToInitShaderDataArr
-  |> ArrayWT.reduceOneParam(
-       (. state, {shaderName, vs, fs}: InitShaderDataType.initShaderData) =>
-         Program.setProgram(
-           shaderName,
-           gl |> Program.createProgram |> _initShader(vs, fs, gl),
-           state,
-         ),
-       state,
+  |> Result.tryCatch(initShaderDataArr =>
+       initShaderDataArr
+       |> ArrayWT.reduceOneParam(
+            (.
+              state,
+              {shaderName, vs, fs}: InitShaderDataType.initShaderData,
+            ) =>
+              Program.setProgram(
+                shaderName,
+                gl |> Program.createProgram |> _initShader(vs, fs, gl),
+                state,
+              ),
+            state,
+          )
      );
 };

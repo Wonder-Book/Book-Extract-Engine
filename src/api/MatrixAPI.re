@@ -10,7 +10,8 @@ let buildPerspective = ((fovy, aspect, near, far), mat) =>
       CameraWT.Frustum.Far.create(far),
     ),
     mat,
-  );
+  )
+  |> Result.getSuccessValue(Error.error);
 
 let setLookAt =
     ((eyeX, eyeY, eyeZ), (centerX, centerY, centerZ), (upX, upY, upZ), mat) =>

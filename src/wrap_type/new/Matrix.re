@@ -101,37 +101,42 @@ let buildPerspective = ((fovy, aspect, near, far), mat) => {
   let fovy = CameraWT.Frustum.Fovy.value(fovy);
 
   Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0. ?
-    Error.error("frustum should not be null") : ();
+    Result.fail("frustum should not be null") :
+    {
+      let aspect = CameraWT.Frustum.Aspect.value(aspect);
+      let near = CameraWT.Frustum.Near.value(near);
+      let far = CameraWT.Frustum.Far.value(far);
 
-  let aspect = CameraWT.Frustum.Aspect.value(aspect);
-  let near = CameraWT.Frustum.Near.value(near);
-  let far = CameraWT.Frustum.Far.value(far);
+      let fovy = Js.Math._PI *. fovy /. 180. /. 2.;
+      let s = Js.Math.sin(fovy);
+      let rd = 1. /. (far -. near);
+      let ct = Js.Math.cos(fovy) /. s;
 
-  let fovy = Js.Math._PI *. fovy /. 180. /. 2.;
-  let s = Js.Math.sin(fovy);
-  let rd = 1. /. (far -. near);
-  let ct = Js.Math.cos(fovy) /. s;
+      let resultFloat32Arr = value(mat);
 
-  let resultFloat32Arr = value(mat);
+      Float32Array.unsafe_set(resultFloat32Arr, 0, ct /. aspect);
+      Float32Array.unsafe_set(resultFloat32Arr, 1, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 2, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 3, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 4, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 5, ct);
+      Float32Array.unsafe_set(resultFloat32Arr, 6, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 7, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 8, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 9, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 10, -. (far +. near) *. rd);
+      Float32Array.unsafe_set(resultFloat32Arr, 11, -1.);
+      Float32Array.unsafe_set(resultFloat32Arr, 12, 0.);
+      Float32Array.unsafe_set(resultFloat32Arr, 13, 0.);
+      Float32Array.unsafe_set(
+        resultFloat32Arr,
+        14,
+        (-2.) *. far *. near *. rd,
+      );
+      Float32Array.unsafe_set(resultFloat32Arr, 15, 0.);
 
-  Float32Array.unsafe_set(resultFloat32Arr, 0, ct /. aspect);
-  Float32Array.unsafe_set(resultFloat32Arr, 1, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 2, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 3, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 4, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 5, ct);
-  Float32Array.unsafe_set(resultFloat32Arr, 6, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 7, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 8, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 9, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 10, -. (far +. near) *. rd);
-  Float32Array.unsafe_set(resultFloat32Arr, 11, -1.);
-  Float32Array.unsafe_set(resultFloat32Arr, 12, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 13, 0.);
-  Float32Array.unsafe_set(resultFloat32Arr, 14, (-2.) *. far *. near *. rd);
-  Float32Array.unsafe_set(resultFloat32Arr, 15, 0.);
-
-  resultFloat32Arr |> createWithoutCheck;
+      resultFloat32Arr |> createWithoutCheck |> Result.succeed;
+    };
 };
 
 let setTranslation = (v, mat) => {

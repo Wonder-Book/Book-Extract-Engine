@@ -142,26 +142,37 @@ let render = (gl, state) => {
     gl,
     state,
   )
-  |> Js.Array.forEach(
-       ({mMatrix, vertexBuffer, indexBuffer, indexCount, colors, program}) => {
-       Gl.useProgram(program, gl);
+  |> Result.tryCatch(renderDataArr =>
+       renderDataArr
+       |> Js.Array.forEach(
+            (
+              {
+                mMatrix,
+                vertexBuffer,
+                indexBuffer,
+                indexCount,
+                colors,
+                program,
+              },
+            ) => {
+            Gl.useProgram(program, gl);
 
-       _sendAttributeData(vertexBuffer, program, gl);
+            _sendAttributeData(vertexBuffer, program, gl);
 
-       _sendCameraUniformData((vMatrix, pMatrix), program, gl);
+            _sendCameraUniformData((vMatrix, pMatrix), program, gl);
 
-       _sendModelUniformData((mMatrix, colors), program, gl);
+            _sendModelUniformData((mMatrix, colors), program, gl);
 
-       Gl.bindBuffer(Gl.getElementArrayBuffer(gl), indexBuffer, gl);
+            Gl.bindBuffer(Gl.getElementArrayBuffer(gl), indexBuffer, gl);
 
-       Gl.drawElements(
-         Gl.getTriangles(gl),
-         indexCount,
-         Gl.getUnsignedShort(gl),
-         0,
-         gl,
-       );
-     });
-
-  state;
+            Gl.drawElements(
+              Gl.getTriangles(gl),
+              indexCount,
+              Gl.getUnsignedShort(gl),
+              0,
+              gl,
+            );
+          })
+     )
+  |> Result.mapSuccess(() => state);
 };
