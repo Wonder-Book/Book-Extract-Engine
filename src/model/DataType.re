@@ -1,5 +1,5 @@
 type deviceManagerData = {
-  gl: option(GlType.webgl1Context),
+  gl: option(Gl.webgl1Context),
   clearColor: (float, float, float, float),
 };
 
@@ -11,15 +11,13 @@ type fs = string;
 
 type glslData = {glslMap: ImmutableHashMap.t2(shaderName, (vs, fs))};
 
-type programData = {
-  programMap: ImmutableHashMap.t2(shaderName, GlType.program),
-};
+type programData = {programMap: ImmutableHashMap.t2(shaderName, Gl.program)};
 
 type geometryData = {
   vertices: Js.Typed_array.Float32Array.t,
   indices: Js.Typed_array.Uint16Array.t,
-  vertexBuffer: option(GlType.buffer),
-  indexBuffer: option(GlType.buffer),
+  vertexBuffer: option(Gl.buffer),
+  indexBuffer: option(Gl.buffer),
 };
 
 type transformData = {mMatrix: MatrixType.matrix};
@@ -42,7 +40,7 @@ type cameraData = {
   pMatrix: option(MatrixType.matrix),
 };
 
-type canvas = DomExtendType.htmlElement;
+type canvas = DomExtend.htmlElement;
 
 type viewData = {canvas: option(canvas)};
 

@@ -1,8 +1,8 @@
 type renderData = {
   mMatrix: MatrixType.matrix,
-  vertexBuffer: GlType.buffer,
-  indexBuffer: GlType.buffer,
+  vertexBuffer: Gl.buffer,
+  indexBuffer: Gl.buffer,
   indexCount: int,
   colors: array((float, float, float)),
-  program: GlType.program,
+  program: Gl.program,
 };
