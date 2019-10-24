@@ -1,4 +1,4 @@
-type shaderName =
+type t =
   | ShaderName(string);
 
 let create = value => ShaderName(value);

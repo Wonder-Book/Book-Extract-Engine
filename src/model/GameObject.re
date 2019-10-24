@@ -77,3 +77,18 @@ let setGameObjectDataList = (gameObjectDataList, state) => {
 };
 
 let createAllGameObjectData = () => {gameObjectDataList: []};
+
+let addGameObjectData =
+    (mMatrix, (vertices, indices), (shaderName, colors), state) =>
+  setGameObjectDataList(
+    [
+      {
+        transformData: Transform.createTransformData(mMatrix),
+        geometryData:
+          Geometry.createGeometryDataWithGeometryPoints(vertices, indices),
+        materialData: Material.createMaterialData(shaderName, colors),
+      },
+      ...getGameObjectDataList(state),
+    ],
+    state,
+  );

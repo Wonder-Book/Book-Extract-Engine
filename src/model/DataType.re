@@ -4,12 +4,11 @@ type deviceManagerData = {
 };
 
 type glslData = {
-  glslMap:
-    ImmutableHashMap.t2(ShaderWT.shaderName, (GLSLWT.VS.t, GLSLWT.FS.t)),
+  glslMap: ImmutableHashMap.t2(ShaderName.t, (GLSLWT.VS.t, GLSLWT.FS.t)),
 };
 
 type programData = {
-  programMap: ImmutableHashMap.t2(ShaderWT.shaderName, Gl.program),
+  programMap: ImmutableHashMap.t2(ShaderName.t, Gl.program),
 };
 
 type geometryData = {
@@ -22,7 +21,7 @@ type geometryData = {
 type transformData = {mMatrix: CoordinateTransformationMatrix.Model.t};
 
 type materialData = {
-  shaderName: ShaderWT.shaderName,
+  shaderName: ShaderName.t,
   colors: list(Color.Color3.t),
 };
 

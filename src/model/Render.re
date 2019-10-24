@@ -58,7 +58,7 @@ let _initVBOs = (gl, state) =>
   |> GameObject.setGameObjectDataList(_, state);
 
 let _getProgram = ({shaderName}, state) =>
-  Shader.Program.unsafeGetProgram(shaderName |> ShaderWT.value, state);
+  Shader.Program.unsafeGetProgram(shaderName |> ShaderName.value, state);
 
 let _changeGameObjectDataListToRenderDataList =
     (gameObjectDataList, gl, state) =>

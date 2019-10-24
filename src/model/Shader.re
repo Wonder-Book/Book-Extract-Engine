@@ -16,7 +16,7 @@ module GLSL = {
   let addGLSL = (shaderName, glslData, state) =>
     _setGLSLMap(
       _getGLSLMap(state)
-      |> ImmutableHashMap.set(ShaderWT.value(shaderName), glslData),
+      |> ImmutableHashMap.set(ShaderName.value(shaderName), glslData),
       state,
     );
 
