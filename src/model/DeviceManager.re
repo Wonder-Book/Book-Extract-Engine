@@ -1,6 +1,6 @@
 open DataType;
 
-let createData = () => {
+let createDeviceManagerData = () => {
   gl: None,
   clearColor: Color.Color4.create(0., 0., 0., 1.),
 };

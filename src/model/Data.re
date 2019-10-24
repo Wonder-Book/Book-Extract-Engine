@@ -8,7 +8,7 @@ let unsafeGetState = () =>
   getStateData().state |> Option.unsafeGet;
 
 let createState = () => {
-  deviceManagerData: DeviceManager.createData(),
+  deviceManagerData: DeviceManager.createDeviceManagerData(),
   glslData: Shader.GLSL.createGLSLData(),
   programData: Shader.Program.createProgramData(),
   cameraData: Camera.createCameraData(),
