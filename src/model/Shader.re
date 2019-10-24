@@ -140,26 +140,24 @@ let _initShader = (vsSource: string, fsSource: string, gl, program) => {
   program;
 };
 
-let _changeGLSLDataArrToInitShaderDataArr = glslDataArr =>
+let _changeGLSLDataArrToInitShaderDataList = glslDataArr =>
   glslDataArr
   |> Js.Array.map(((shaderName, (vs, fs))) =>
        (
          {shaderName, vs: GLSLWT.VS.value(vs), fs: GLSLWT.FS.value(fs)}: InitShaderDataType.initShaderData
        )
-     );
+     )
+  |> Array.to_list;
 
 let init = (state: DataType.state): Result.t(DataType.state, Js.Exn.t) => {
   let gl = DeviceManager.unsafeGetGl(state);
 
   GLSL.getAllValidGLSLEntries(state)
-  |> _changeGLSLDataArrToInitShaderDataArr
-  |> Result.tryCatch(initShaderDataArr =>
-       initShaderDataArr
-       |> ArrayWT.reduceOneParam(
-            (.
-              state,
-              {shaderName, vs, fs}: InitShaderDataType.initShaderData,
-            ) =>
+  |> _changeGLSLDataArrToInitShaderDataList
+  |> Result.tryCatch(initShaderDataList =>
+       initShaderDataList
+       |> List.fold_left(
+            (state, {shaderName, vs, fs}: InitShaderDataType.initShaderData) =>
               Program.setProgram(
                 shaderName,
                 gl |> Program.createProgram |> _initShader(vs, fs, gl),
