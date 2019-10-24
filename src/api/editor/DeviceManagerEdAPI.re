@@ -1,0 +1,1 @@
+let setClearColor = DeviceManager.setClearColor;

@@ -1,27 +1,31 @@
-let setCameraData = CameraAPI.setCameraData;
+let setCameraData = CameraJsAPI.setCameraData;
 
-let createState = DataAPI.createState;
+let setState = DataJsAPI.setState;
 
-let setClearColor = DeviceManagerAPI.setClearColor;
+let unsafeGetState = DataJsAPI.unsafeGetState;
 
-let loop = DirectorAPI.loop;
+let createState = DataJsAPI.createState;
 
-let initAll = DirectorAPI.initAll;
+let setClearColor = DeviceManagerJsAPI.setClearColor;
 
-let addGameObjectData = GameObjectAPI.addGameObjectData;
+let loop = DirectorJsAPI.loop;
 
-let createTriangleGeometryData = GameObjectAPI.createTriangleGeometryData;
+let initAll = DirectorJsAPI.initAll;
 
-let createIdentityMatrix = MatrixAPI.createIdentityMatrix;
+let addGameObjectData = GameObjectJsAPI.addGameObjectData;
 
-let setLookAt = MatrixAPI.setLookAt;
+let createTriangleGeometryData = GameObjectJsAPI.createTriangleGeometryData;
 
-let buildPerspective = MatrixAPI.buildPerspective;
+let createIdentityMatrix = MatrixJsAPI.createIdentityMatrix;
 
-let setTranslation = MatrixAPI.setTranslation;
+let setLookAt = MatrixJsAPI.setLookAt;
 
-let addGLSL = ShaderAPI.addGLSL;
+let buildPerspective = MatrixJsAPI.buildPerspective;
 
-let setCanvasById = ViewAPI.setCanvasById;
+let setTranslation = MatrixJsAPI.setTranslation;
 
-let unsafeGetCanvas = ViewAPI.unsafeGetCanvas;
+let addGLSL = ShaderJsAPI.addGLSL;
+
+let setCanvasById = ViewJsAPI.setCanvasById;
+
+let unsafeGetCanvas = ViewJsAPI.unsafeGetCanvas;

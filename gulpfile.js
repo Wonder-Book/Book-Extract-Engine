@@ -6,7 +6,7 @@ gulp.task("generateIndex", function (done) {
     var rootDir = path.join(process.cwd(), "src"),
         destDir = "./src/";
 
-    generate.generate("/", rootDir, ["**/api/**/*.re"], destDir, {
+    generate.generate("/", rootDir, ["**/api/js/**/*.re"], destDir, {
         exclude: []
     });
 
