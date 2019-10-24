@@ -66,13 +66,14 @@ module Material = {
   let getColors = ({colors}) => colors;
 };
 
-let getGameObjectDataArr = state => state.allGameObjectData.gameObjectDataArr;
+let getGameObjectDataList = state =>
+  state.allGameObjectData.gameObjectDataList;
 
-let setGameObjectDataArr = (gameObjectDataArr, state) => {
+let setGameObjectDataList = (gameObjectDataList, state) => {
   ...state,
   allGameObjectData: {
-    gameObjectDataArr: gameObjectDataArr,
+    gameObjectDataList: gameObjectDataList,
   },
 };
 
-let createAllGameObjectData = () => {gameObjectDataArr: [||]};
+let createAllGameObjectData = () => {gameObjectDataList: []};

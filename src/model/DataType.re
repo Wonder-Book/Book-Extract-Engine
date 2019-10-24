@@ -23,7 +23,7 @@ type transformData = {mMatrix: CoordinateTransformationMatrix.Model.t};
 
 type materialData = {
   shaderName: ShaderWT.shaderName,
-  colors: array(Color.Color3.t),
+  colors: list(Color.Color3.t),
 };
 
 type gameObjectData = {
@@ -32,7 +32,7 @@ type gameObjectData = {
   materialData,
 };
 
-type allGameObjectData = {gameObjectDataArr: array(gameObjectData)};
+type allGameObjectData = {gameObjectDataList: list(gameObjectData)};
 
 type cameraData = {
   vMatrix: option(CoordinateTransformationMatrix.View.t),

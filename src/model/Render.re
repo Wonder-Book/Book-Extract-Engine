@@ -45,8 +45,8 @@ let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
   };
 
 let _initVBOs = (gl, state) =>
-  GameObject.getGameObjectDataArr(state)
-  |> Js.Array.map(
+  GameObject.getGameObjectDataList(state)
+  |> List.map(
        ({transformData, geometryData, materialData} as gameObjectData) =>
        {
          ...gameObjectData,
@@ -55,14 +55,15 @@ let _initVBOs = (gl, state) =>
            |> GameObject.Geometry.setBufferts(_, geometryData),
        }
      )
-  |> GameObject.setGameObjectDataArr(_, state);
+  |> GameObject.setGameObjectDataList(_, state);
 
 let _getProgram = ({shaderName}, state) =>
   Shader.Program.unsafeGetProgram(shaderName |> ShaderWT.value, state);
 
-let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
-  gameObjectDataArr
-  |> Js.Array.map(
+let _changeGameObjectDataListToRenderDataList =
+    (gameObjectDataList, gl, state) =>
+  gameObjectDataList
+  |> List.map(
        ({transformData, geometryData, materialData} as gameObjectData) => {
        let (vertexBuffer, indexBuffer) =
          GameObject.Geometry.unsafeGetBuffers(geometryData);
@@ -78,7 +79,7 @@ let _changeGameObjectDataArrToRenderDataArr = (gameObjectDataArr, gl, state) =>
            |> GeometryPoints.Indices.length,
          colors:
            GameObject.Material.getColors(materialData)
-           |> Js.Array.map(color => color |> Color.Color3.value),
+           |> List.map(color => color |> Color.Color3.value),
          program: _getProgram(materialData, state),
        };
      });
@@ -87,7 +88,8 @@ let _sendAttributeData = (vertexBuffer, program, gl) => {
   let positionLocation = Gl.getAttribLocation(program, "a_position", gl);
 
   positionLocation === (-1) ?
-    Error.raiseError({j|Failed to get the storage location of a_position|j}) : ();
+    Error.raiseError({j|Failed to get the storage location of a_position|j}) :
+    ();
 
   Gl.bindBuffer(Gl.getArrayBuffer(gl), vertexBuffer, gl);
 
@@ -115,7 +117,7 @@ let _sendModelUniformData = ((mMatrix, colors), program, gl) => {
   let mMatrixLocation = Gl.getUniformLocation(program, "u_mMatrix", gl);
 
   colors
-  |> Js.Array.forEachi(((r, g, b), index) => {
+  |> List.iteri((index, (r, g, b)) => {
        let colorLocation =
          Gl.getUniformLocation(program, {j|u_color$index|j}, gl);
 
@@ -137,14 +139,14 @@ let render = (gl, state) => {
 
   let state = _initVBOs(gl, state);
 
-  _changeGameObjectDataArrToRenderDataArr(
-    GameObject.getGameObjectDataArr(state),
+  _changeGameObjectDataListToRenderDataList(
+    GameObject.getGameObjectDataList(state),
     gl,
     state,
   )
-  |> Result.tryCatch(renderDataArr =>
-       renderDataArr
-       |> Js.Array.forEach(
+  |> Result.tryCatch(renderDataList =>
+       renderDataList
+       |> List.iter(
             (
               {
                 mMatrix,
