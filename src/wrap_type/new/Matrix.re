@@ -101,7 +101,7 @@ let buildPerspective = ((fovy, aspect, near, far), mat) => {
   let fovy = CameraWT.Frustum.Fovy.value(fovy);
 
   Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0. ?
-    Result.fail("frustum should not be null") :
+    Result.fail(Error.raiseErrorAndReturn("frustum should not be null")) :
     {
       let aspect = CameraWT.Frustum.Aspect.value(aspect);
       let near = CameraWT.Frustum.Near.value(near);

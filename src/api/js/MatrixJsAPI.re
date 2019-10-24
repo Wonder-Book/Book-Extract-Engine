@@ -11,7 +11,7 @@ let buildPerspective = ((fovy, aspect, near, far), mat) =>
     ),
     mat,
   )
-  |> Result.getSuccessValue(Error.raiseError);
+  |> Result.getSuccessValue(Error.throwError);
 
 let setLookAt =
     ((eyeX, eyeY, eyeZ), (centerX, centerY, centerZ), (upX, upY, upZ), mat) =>

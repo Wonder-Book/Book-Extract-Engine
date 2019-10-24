@@ -15,6 +15,16 @@ let either = (successFunc, failureFunc, twoTrackInput) =>
 let bind = (switchFunc, twoTrackInput) =>
   either(switchFunc, fail, twoTrackInput);
 
+let tap = (oneTrackFunc, twoTrackInput) =>
+  either(
+    result => {
+      result |> oneTrackFunc |> ignore;
+      result |> succeed;
+    },
+    fail,
+    twoTrackInput,
+  );
+
 /* let map = (oneTrackFunc, twoTrackInput) =>
      either(result => result |> oneTrackFunc |> succeed, fail, twoTrackInput);
 

@@ -1,13 +1,13 @@
 let initAll = (contextParam, state) =>
   Director.initAll(contextParam, state)
-  |> Result.getSuccessValue(err => Error.throwError(err));
+  |> Result.getSuccessValue(Error.throwError);
 
 let rec _loop = () =>
   DomExtend.requestAnimationFrame((time: float) => {
     Data.unsafeGetState()
     |> Director.loopBody
-    |> Result.bind(state => state |> Data.setState |> Result.succeed)
-    |> Result.getSuccessValue(err => Error.throwError(err))
+    |> Result.tap(state => state |> Data.setState)
+    |> Result.getSuccessValue(Error.throwError)
     |> ignore;
 
     _loop() |> ignore;
