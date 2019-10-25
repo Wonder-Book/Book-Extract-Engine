@@ -33,6 +33,9 @@ let clearColor = (gl, state) => {
   state;
 };
 
+let clear = gl =>
+  Gl.clear(Gl.getColorBufferBit(gl) lor Gl.getDepthBufferBit(gl), gl);
+
 let initGlState = gl => {
   Gl.enable(Gl.getDepthTest(gl), gl);
 
