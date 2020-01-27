@@ -25,13 +25,13 @@ type materialData = {
   colors: list(Color.Color3.t),
 };
 
-type gameObjectData = {
+type singleGameObjectData = {
   transformData,
   geometryData,
   materialData,
 };
 
-type allGameObjectData = {gameObjectDataList: list(gameObjectData)};
+type gameObjectData = list(singleGameObjectData);
 
 type cameraData = {
   vMatrix: option(CoordinateTransformationMatrix.View.t),
@@ -48,7 +48,7 @@ type state = {
   glslData,
   programData,
   cameraData,
-  allGameObjectData,
+  gameObjectData,
 };
 
 type stateData = {mutable state: option(state)};

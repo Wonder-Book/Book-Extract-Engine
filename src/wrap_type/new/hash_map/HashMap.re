@@ -5,8 +5,8 @@ let unsafeGet = (key: string, map) =>
 
 /* TODO move to NullService */
 let _isEmpty = value =>
-  value === ObjMagic.convertToMagicType(Js.Nullable.null)
-  || value === ObjMagic.convertToMagicType(Js.Nullable.undefined);
+  value === ObjMagicUtils.convertToMagicType(Js.Nullable.null)
+  || value === ObjMagicUtils.convertToMagicType(Js.Nullable.undefined);
 
 let get = (key: string, map) => {
   let value = unsafeGet(key, map);

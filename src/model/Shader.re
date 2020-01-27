@@ -22,6 +22,9 @@ module GLSL = {
 
   let getAllValidGLSLEntries = state =>
     _getGLSLMap(state) |> ImmutableHashMap.getValidEntries;
+
+  let getAllValidGLSLEntryList = state =>
+    state |> getAllValidGLSLEntries |> Array.to_list;
 };
 
 module Program = {
@@ -54,17 +57,17 @@ let _compileShader = (gl, glslSource: string, shader) => {
   Gl.compileShader(shader, gl);
 
   /* TODO optimize */
-  Gl.getShaderParameter(shader, Gl.getCompileStatus(gl), gl) === false ?
-    {
+  Gl.getShaderParameter(shader, Gl.getCompileStatus(gl), gl) === false
+    ? {
       let message = Gl.getShaderInfoLog(shader, gl);
 
-      Error.raiseError(
+      ErrorUtils.raiseError(
         {j|shader info log: $message
         glsl source: $glslSource
         |j},
       );
-    } :
-    ();
+    }
+    : ();
 
   shader;
 };
@@ -73,13 +76,13 @@ let _linkProgram = (program, gl) => {
   Gl.linkProgram(program, gl);
 
   /* TODO optimize */
-  Gl.getProgramParameter(program, Gl.getLinkStatus(gl), gl) === false ?
-    {
+  Gl.getProgramParameter(program, Gl.getLinkStatus(gl), gl) === false
+    ? {
       let message = Gl.getProgramInfoLog(program, gl);
 
-      Error.raiseError({j|link program error: $message|j});
-    } :
-    ();
+      ErrorUtils.raiseError({j|link program error: $message|j});
+    }
+    : ();
 };
 
 let _initShader = (vsSource: string, fsSource: string, gl, program) => {
@@ -140,20 +143,19 @@ let _initShader = (vsSource: string, fsSource: string, gl, program) => {
   program;
 };
 
-let _changeGLSLDataArrToInitShaderDataList = glslDataArr =>
-  glslDataArr
-  |> Js.Array.map(((shaderName, (vs, fs))) =>
+let _changeGLSLDataListToInitShaderDataList = glslDataList =>
+  glslDataList
+  |> List.map(((shaderName, (vs, fs))) =>
        (
          {shaderName, vs: GLSLWT.VS.value(vs), fs: GLSLWT.FS.value(fs)}: InitShaderDataType.initShaderData
        )
-     )
-  |> Array.to_list;
+     );
 
 let init = (state: DataType.state): Result.t(DataType.state, Js.Exn.t) => {
-  let gl = DeviceManager.unsafeGetGl(state);
+  let gl = DeviceManager.unsafeGetGlByThrow(state);
 
-  GLSL.getAllValidGLSLEntries(state)
-  |> _changeGLSLDataArrToInitShaderDataList
+  GLSL.getAllValidGLSLEntryList(state)
+  |> _changeGLSLDataListToInitShaderDataList
   |> Result.tryCatch(initShaderDataList =>
        initShaderDataList
        |> List.fold_left(

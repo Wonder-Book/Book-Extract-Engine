@@ -45,7 +45,7 @@ let tap = (oneTrackFunc, twoTrackInput) =>
      }; */
 
 let tryCatch = (oneTrackFunc: 'a => 'b, x: 'a): t('b, Js.Exn.t) =>
-  try (oneTrackFunc(x) |> succeed) {
+  try(oneTrackFunc(x) |> succeed) {
   | Js.Exn.Error(e) => fail(e)
   | err => fail(Js.Exn.raiseError({j|unknown error: $err|j}))
   };
@@ -59,5 +59,5 @@ let mapSuccess = (mapFunc, result) =>
 let getSuccessValue = (handleFailFunc: 'f => unit, result: t('s, 'f)): 's =>
   switch (result) {
   | Success(s) => s
-  | Fail(f) => handleFailFunc(f) |> ObjMagic.returnMagicValue
+  | Fail(f) => handleFailFunc(f) |> ObjMagicUtils.returnMagicValue
   };

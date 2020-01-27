@@ -2,7 +2,7 @@ open DataType;
 
 let createViewData = () => {canvas: None};
 
-let unsafeGetCanvas = state => state.viewData.canvas |> Option.unsafeGet;
+let unsafeGetCanvasByThrow = state => state.viewData.canvas |> Option.unsafeGetByThrow;
 
 let _setCanvas = (canvas, state) => {
   ...state,

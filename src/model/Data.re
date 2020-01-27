@@ -4,8 +4,8 @@ let stateData = {state: None};
 
 let getStateData = () => stateData;
 
-let unsafeGetState = () =>
-  getStateData().state |> Option.unsafeGet;
+let unsafeGetStateByThrow = () =>
+  getStateData().state |> Option.unsafeGetByThrow;
 
 let createState = () => {
   deviceManagerData: DeviceManager.createDeviceManagerData(),
@@ -13,7 +13,7 @@ let createState = () => {
   programData: Shader.Program.createProgramData(),
   cameraData: Camera.createCameraData(),
   viewData: View.createViewData(),
-  allGameObjectData: GameObject.createAllGameObjectData(),
+  gameObjectData: GameObject.createAllGameObjectData(),
 };
 
 let setState = state => {

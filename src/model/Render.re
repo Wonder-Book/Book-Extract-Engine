@@ -41,11 +41,14 @@ let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
       ),
       gl,
     )
-  | _ => (vertexBuffer |> Option.unsafeGet, indexBuffer |> Option.unsafeGet)
+  | _ => (
+      vertexBuffer |> Option.unsafeGetByThrow,
+      indexBuffer |> Option.unsafeGetByThrow,
+    )
   };
 
 let _initVBOs = (gl, state) =>
-  GameObject.getGameObjectDataList(state)
+  GameObject.getAllGameObjectData(state)
   |> List.map(
        ({transformData, geometryData, materialData} as gameObjectData) =>
        {
@@ -55,18 +58,17 @@ let _initVBOs = (gl, state) =>
            |> GameObject.Geometry.setBufferts(_, geometryData),
        }
      )
-  |> GameObject.setGameObjectDataList(_, state);
+  |> GameObject.setAllGameObjectData(_, state);
 
 let _getProgram = ({shaderName}, state) =>
   Shader.Program.unsafeGetProgram(shaderName |> ShaderName.value, state);
 
-let _changeGameObjectDataListToRenderDataList =
-    (gameObjectDataList, gl, state) =>
-  gameObjectDataList
+let _changeAllGameObjectDataToRenderDataList = (allGameObjectData, gl, state) =>
+  allGameObjectData
   |> List.map(
        ({transformData, geometryData, materialData} as gameObjectData) => {
        let (vertexBuffer, indexBuffer) =
-         GameObject.Geometry.unsafeGetBuffers(geometryData);
+         GameObject.Geometry.unsafeGetBuffersByThrow(geometryData);
 
        {
          mMatrix:
@@ -87,9 +89,11 @@ let _changeGameObjectDataListToRenderDataList =
 let _sendAttributeData = (vertexBuffer, program, gl) => {
   let positionLocation = Gl.getAttribLocation(program, "a_position", gl);
 
-  positionLocation === (-1) ?
-    Error.raiseError({j|Failed to get the storage location of a_position|j}) :
-    ();
+  positionLocation === (-1)
+    ? ErrorUtils.raiseError(
+        {j|Failed to get the storage location of a_position|j},
+      )
+    : ();
 
   Gl.bindBuffer(Gl.getArrayBuffer(gl), vertexBuffer, gl);
 
@@ -105,21 +109,30 @@ let _sendAttributeData = (vertexBuffer, program, gl) => {
   Gl.enableVertexAttribArray(positionLocation, gl);
 };
 
+let _unsafeGetUniformLocationByThrow = (program, name, gl) =>
+  switch (Gl.getUniformLocation(program, name, gl)) {
+  | pos when !Js.Null.test(pos) => Js.Null.getUnsafe(pos)
+  | _ => ErrorUtils.raiseErrorAndReturn({j|$name uniform not exist|j})
+  };
+
 let _sendCameraUniformData = ((vMatrix, pMatrix), program, gl) => {
-  let vMatrixLocation = Gl.getUniformLocation(program, "u_vMatrix", gl);
-  let pMatrixLocation = Gl.getUniformLocation(program, "u_pMatrix", gl);
+  let vMatrixLocation =
+    _unsafeGetUniformLocationByThrow(program, "u_vMatrix", gl);
+  let pMatrixLocation =
+    _unsafeGetUniformLocationByThrow(program, "u_pMatrix", gl);
 
   Gl.uniformMatrix4fv(vMatrixLocation, false, vMatrix, gl);
   Gl.uniformMatrix4fv(pMatrixLocation, false, pMatrix, gl);
 };
 
 let _sendModelUniformData = ((mMatrix, colors), program, gl) => {
-  let mMatrixLocation = Gl.getUniformLocation(program, "u_mMatrix", gl);
+  let mMatrixLocation =
+    _unsafeGetUniformLocationByThrow(program, "u_mMatrix", gl);
 
   colors
   |> List.iteri((index, (r, g, b)) => {
        let colorLocation =
-         Gl.getUniformLocation(program, {j|u_color$index|j}, gl);
+         _unsafeGetUniformLocationByThrow(program, {j|u_color$index|j}, gl);
 
        Gl.uniform3f(colorLocation, r, g, b, gl);
      });
@@ -128,9 +141,11 @@ let _sendModelUniformData = ((mMatrix, colors), program, gl) => {
 };
 
 let render = (gl, state) => {
+  DeviceManager.initGlState(gl);
+
   let (vMatrix, pMatrix) = (
-    Camera.unsafeGetVMatrix(state),
-    Camera.unsafeGetPMatrix(state),
+    Camera.unsafeGetVMatrixByThrow(state),
+    Camera.unsafeGetPMatrixByThrow(state),
   );
   let (vMatrix, pMatrix) = (
     vMatrix |> CoordinateTransformationMatrix.View.getMatrixValue,
@@ -139,8 +154,8 @@ let render = (gl, state) => {
 
   let state = _initVBOs(gl, state);
 
-  _changeGameObjectDataListToRenderDataList(
-    GameObject.getGameObjectDataList(state),
+  _changeAllGameObjectDataToRenderDataList(
+    GameObject.getAllGameObjectData(state),
     gl,
     state,
   )

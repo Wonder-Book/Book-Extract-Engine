@@ -1,4 +1,4 @@
-let unsafeGet = optionData => {
+let unsafeGetByThrow = optionData => {
     /* WonderLog.Contract.requireCheck(
       () =>
         WonderLog.(
