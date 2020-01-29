@@ -98,14 +98,14 @@ let buildPerspective = ((fovy, aspect, near, far), mat) => {
        IsDebugMainService.getIsDebug(StateDataMain.stateData),
      ); */
 
-  let fovy = CameraWT.Frustum.Fovy.value(fovy);
+  let fovy = CameraVO.Frustum.Fovy.value(fovy);
 
   Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0. ?
-    Result.fail(ErrorUtils.raiseErrorAndReturn("frustum should not be null")) :
+    Result.fail(ErrorService.raiseErrorAndReturn("frustum should not be null")) :
     {
-      let aspect = CameraWT.Frustum.Aspect.value(aspect);
-      let near = CameraWT.Frustum.Near.value(near);
-      let far = CameraWT.Frustum.Far.value(far);
+      let aspect = CameraVO.Frustum.Aspect.value(aspect);
+      let near = CameraVO.Frustum.Near.value(near);
+      let far = CameraVO.Frustum.Far.value(far);
 
       let fovy = Js.Math._PI *. fovy /. 180. /. 2.;
       let s = Js.Math.sin(fovy);

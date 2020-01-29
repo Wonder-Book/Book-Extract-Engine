@@ -61,7 +61,7 @@ let _initVBOs = (gl, state) =>
   |> GameObject.setAllGameObjectData(_, state);
 
 let _getProgram = ({shaderName}, state) =>
-  Shader.Program.unsafeGetProgram(shaderName |> ShaderName.value, state);
+  Shader.Program.unsafeGetProgramByNull(shaderName |> ShaderName.value, state);
 
 let _changeAllGameObjectDataToRenderDataList = (allGameObjectData, gl, state) =>
   allGameObjectData
@@ -90,7 +90,7 @@ let _sendAttributeData = (vertexBuffer, program, gl) => {
   let positionLocation = Gl.getAttribLocation(program, "a_position", gl);
 
   positionLocation === (-1)
-    ? ErrorUtils.raiseError(
+    ? ErrorService.raiseError(
         {j|Failed to get the storage location of a_position|j},
       )
     : ();
@@ -112,7 +112,7 @@ let _sendAttributeData = (vertexBuffer, program, gl) => {
 let _unsafeGetUniformLocationByThrow = (program, name, gl) =>
   switch (Gl.getUniformLocation(program, name, gl)) {
   | pos when !Js.Null.test(pos) => Js.Null.getUnsafe(pos)
-  | _ => ErrorUtils.raiseErrorAndReturn({j|$name uniform not exist|j})
+  | _ => ErrorService.raiseErrorAndReturn({j|$name uniform not exist|j})
   };
 
 let _sendCameraUniformData = ((vMatrix, pMatrix), program, gl) => {

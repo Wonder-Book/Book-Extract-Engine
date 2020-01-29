@@ -4,14 +4,14 @@ let setTranslation = ((v1, v2, v3), mat) =>
 let buildPerspective = ((fovy, aspect, near, far), mat) =>
   Matrix.buildPerspective(
     (
-      CameraWT.Frustum.Fovy.create(fovy),
-      CameraWT.Frustum.Aspect.create(aspect),
-      CameraWT.Frustum.Near.create(near),
-      CameraWT.Frustum.Far.create(far),
+      CameraVO.Frustum.Fovy.create(fovy),
+      CameraVO.Frustum.Aspect.create(aspect),
+      CameraVO.Frustum.Near.create(near),
+      CameraVO.Frustum.Far.create(far),
     ),
     mat,
   )
-  |> Result.getSuccessValue(ErrorUtils.throwError);
+  |> Result.getSuccessValue(ErrorService.throwError);
 
 let setLookAt =
     ((eyeX, eyeY, eyeZ), (centerX, centerY, centerZ), (upX, upY, upZ), mat) =>

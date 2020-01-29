@@ -5,13 +5,15 @@ type t2('key, 'a) = Js.Dict.t(Js.Nullable.t('a));
 let createEmpty = HashMap.createEmpty;
 
 let set = (key: string, value: 'a, map: t('a)): t('a) => {
-  Js.Dict.set(map, key, value |> HashMapType.notNullableToNullable);
+  let newMap = map |> HashMap.copy;
 
-  map;
+  Js.Dict.set(newMap, key, value |> HashMapType.notNullableToNullable);
+
+  newMap;
 };
 
 let get = HashMap.get;
 
-let unsafeGet = HashMap.unsafeGet;
+let unsafeGetByNull = HashMap.unsafeGetByNull;
 
 let getValidEntries = HashMap.getValidEntries;

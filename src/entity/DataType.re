@@ -4,7 +4,7 @@ type deviceManagerData = {
 };
 
 type glslData = {
-  glslMap: ImmutableHashMap.t2(ShaderName.t, (GLSLWT.VS.t, GLSLWT.FS.t)),
+  glslMap: ImmutableHashMap.t2(ShaderName.t, (GLSLVO.VS.t, GLSLVO.FS.t)),
 };
 
 type programData = {

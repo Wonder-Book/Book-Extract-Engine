@@ -42,8 +42,8 @@ module Program = {
     },
   };
 
-  let unsafeGetProgram = (shaderName, state) =>
-    _getProgramMap(state) |> ImmutableHashMap.unsafeGet(shaderName);
+  let unsafeGetProgramByNull = (shaderName, state) =>
+    _getProgramMap(state) |> ImmutableHashMap.unsafeGetByNull(shaderName);
 
   let setProgram = (shaderName, program, state) =>
     _setProgramMap(
@@ -61,7 +61,7 @@ let _compileShader = (gl, glslSource: string, shader) => {
     ? {
       let message = Gl.getShaderInfoLog(shader, gl);
 
-      ErrorUtils.raiseError(
+      ErrorService.raiseError(
         {j|shader info log: $message
         glsl source: $glslSource
         |j},
@@ -80,7 +80,7 @@ let _linkProgram = (program, gl) => {
     ? {
       let message = Gl.getProgramInfoLog(program, gl);
 
-      ErrorUtils.raiseError({j|link program error: $message|j});
+      ErrorService.raiseError({j|link program error: $message|j});
     }
     : ();
 };
@@ -147,7 +147,7 @@ let _changeGLSLDataListToInitShaderDataList = glslDataList =>
   glslDataList
   |> List.map(((shaderName, (vs, fs))) =>
        (
-         {shaderName, vs: GLSLWT.VS.value(vs), fs: GLSLWT.FS.value(fs)}: InitShaderDataType.initShaderData
+         {shaderName, vs: GLSLVO.VS.value(vs), fs: GLSLVO.FS.value(fs)}: InitShaderDataType.initShaderData
        )
      );
 

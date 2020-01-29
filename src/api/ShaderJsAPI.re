@@ -1,6 +1,6 @@
 let addGLSL = (shaderName, (vs, fs), state) =>
   Shader.GLSL.addGLSL(
     ShaderName.create(shaderName),
-    (GLSLWT.VS.create(vs), GLSLWT.FS.create(fs)),
+    (GLSLVO.VS.create(vs), GLSLVO.FS.create(fs)),
     state,
   );
