@@ -1,9 +1,5 @@
 let setCameraData = CameraJsAPI.setCameraData;
 
-let setState = DataJsAPI.setState;
-
-let unsafeGetState = DataJsAPI.unsafeGetState;
-
 let createState = DataJsAPI.createState;
 
 let setClearColor = DeviceManagerJsAPI.setClearColor;
