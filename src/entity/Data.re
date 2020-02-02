@@ -5,7 +5,7 @@ let stateData = {state: None};
 let getStateData = () => stateData;
 
 let unsafeGetStateByThrow = () =>
-  getStateData().state |> Option.unsafeGetByThrow;
+  getStateData().state |> OptionService.unsafeGetByThrow;
 
 let createState = () => {
   deviceManagerData: DeviceManager.createDeviceManagerData(),

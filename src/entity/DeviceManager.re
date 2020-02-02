@@ -14,7 +14,7 @@ let setGl = (gl, state) => {
 };
 
 let unsafeGetGlByThrow = state =>
-  state.deviceManagerData.gl |> Option.unsafeGetByThrow;
+  state.deviceManagerData.gl |> OptionService.unsafeGetByThrow;
 
 let getClearColor = state => state.deviceManagerData.clearColor;
 

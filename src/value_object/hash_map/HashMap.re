@@ -36,7 +36,7 @@ let copy =
     (map: Js.Dict.t(Js.Nullable.t('a))): Js.Dict.t(Js.Nullable.t('a)) =>
   map
   |> entries
-  |> ArrayVO.reduceOneParam(
+  |> ArrayService.reduceOneParam(
        (. newMap, (key, value)) => newMap |> _mutableSet(key, value),
        _createEmpty(),
      )

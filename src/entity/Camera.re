@@ -2,9 +2,9 @@ open DataType;
 
 let createCameraData = () => {vMatrix: None, pMatrix: None};
 
-let unsafeGetVMatrixByThrow = state => state.cameraData.vMatrix |> Option.unsafeGetByThrow;
+let unsafeGetVMatrixByThrow = state => state.cameraData.vMatrix |> OptionService.unsafeGetByThrow;
 
-let unsafeGetPMatrixByThrow = state => state.cameraData.pMatrix |> Option.unsafeGetByThrow;
+let unsafeGetPMatrixByThrow = state => state.cameraData.pMatrix |> OptionService.unsafeGetByThrow;
 
 let setCameraData = ((vMatrix, pMatrix), state) => {
   ...state,

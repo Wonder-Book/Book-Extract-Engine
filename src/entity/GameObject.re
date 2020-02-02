@@ -45,8 +45,8 @@ module Geometry = {
   );
 
   let unsafeGetBuffersByThrow = ({vertexBuffer, indexBuffer}) => (
-    vertexBuffer |> Option.unsafeGetByThrow,
-    indexBuffer |> Option.unsafeGetByThrow,
+    vertexBuffer |> OptionService.unsafeGetByThrow,
+    indexBuffer |> OptionService.unsafeGetByThrow,
   );
 
   let setBufferts = ((vertexBuffer, indexBuffer), geometryData) => {

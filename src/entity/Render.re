@@ -42,8 +42,8 @@ let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
       gl,
     )
   | _ => (
-      vertexBuffer |> Option.unsafeGetByThrow,
-      indexBuffer |> Option.unsafeGetByThrow,
+      vertexBuffer |> OptionService.unsafeGetByThrow,
+      indexBuffer |> OptionService.unsafeGetByThrow,
     )
   };
 
