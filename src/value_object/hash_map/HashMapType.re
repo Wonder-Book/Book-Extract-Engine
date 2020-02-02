@@ -13,8 +13,3 @@ external entriesNotNullableToEntriesNullable:
 external dictNotNullableToDictNullable:
   Js.Dict.t('a) => Js.Dict.t(Js.Nullable.t('a)) =
   "%identity";
-
-/* TODO move to SparseMapType */
-external arrayNullableToArrayNotNullable:
-  array(Js.Nullable.t('a)) => array('a) =
-  "%identity";

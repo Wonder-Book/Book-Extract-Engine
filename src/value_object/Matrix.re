@@ -40,9 +40,9 @@ let setLookAt = (eye, center, up, mat) => {
 
   Js.Math.abs_float(eyeX -. centerX) < _getEpsilon()
   && Js.Math.abs_float(eyeY -. centerY) < _getEpsilon()
-  && Js.Math.abs_float(eyeZ -. centerZ) < _getEpsilon() ?
-    mat :
-    {
+  && Js.Math.abs_float(eyeZ -. centerZ) < _getEpsilon()
+    ? mat
+    : {
       let z = Vector.sub(eye, center) |> Vector.normalize;
 
       let x = Vector.cross(up, z) |> Vector.normalize;
@@ -100,9 +100,11 @@ let buildPerspective = ((fovy, aspect, near, far), mat) => {
 
   let fovy = CameraVO.Frustum.Fovy.value(fovy);
 
-  Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0. ?
-    Result.fail(ErrorService.raiseErrorAndReturn("frustum should not be null")) :
-    {
+  Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0.
+    ? Result.fail(
+        ErrorService.raiseErrorAndReturn("frustum should not be null"),
+      )
+    : {
       let aspect = CameraVO.Frustum.Aspect.value(aspect);
       let near = CameraVO.Frustum.Near.value(near);
       let far = CameraVO.Frustum.Far.value(far);
