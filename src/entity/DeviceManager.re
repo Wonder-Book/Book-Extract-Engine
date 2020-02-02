@@ -13,7 +13,8 @@ let setGl = (gl, state) => {
   },
 };
 
-let unsafeGetGlByThrow = state => state.deviceManagerData.gl |> Option.unsafeGetByThrow;
+let unsafeGetGlByThrow = state =>
+  state.deviceManagerData.gl |> Option.unsafeGetByThrow;
 
 let getClearColor = state => state.deviceManagerData.clearColor;
 
@@ -36,9 +37,9 @@ let clearColor = (gl, state) => {
 let clear = gl =>
   Gl.clear(Gl.getColorBufferBit(gl) lor Gl.getDepthBufferBit(gl), gl);
 
-let initGlState = gl => {
-  Gl.enable(Gl.getDepthTest(gl), gl);
+let enableDepthTest = gl => gl |> Gl.enable(Gl.getDepthTest(gl));
 
+let enableBackCullFace = gl => {
   Gl.enable(Gl.getCullFace(gl), gl);
   Gl.cullFace(Gl.getBack(gl), gl);
 };

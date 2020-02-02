@@ -61,7 +61,10 @@ let _initVBOs = (gl, state) =>
   |> GameObject.setAllGameObjectData(_, state);
 
 let _getProgram = ({shaderName}, state) =>
-  Shader.Program.unsafeGetProgramByNull(shaderName |> ShaderName.value, state);
+  Shader.Program.unsafeGetProgramByNull(
+    shaderName |> ShaderName.value,
+    state,
+  );
 
 let _changeAllGameObjectDataToRenderDataList = (allGameObjectData, gl, state) =>
   allGameObjectData
@@ -140,8 +143,13 @@ let _sendModelUniformData = ((mMatrix, colors), program, gl) => {
   Gl.uniformMatrix4fv(mMatrixLocation, false, mMatrix, gl);
 };
 
+let _initGlState = gl => {
+  DeviceManager.enableDepthTest(gl);
+  DeviceManager.enableBackCullFace(gl);
+};
+
 let render = (gl, state) => {
-  DeviceManager.initGlState(gl);
+  _initGlState(gl);
 
   let (vMatrix, pMatrix) = (
     Camera.unsafeGetVMatrixByThrow(state),
