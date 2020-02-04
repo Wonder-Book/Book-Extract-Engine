@@ -151,53 +151,63 @@ let _initGlState = gl => {
 let render = (gl, state) => {
   _initGlState(gl);
 
-  let (vMatrix, pMatrix) = (
-    Camera.unsafeGetVMatrixByThrow(state),
-    Camera.unsafeGetPMatrixByThrow(state),
-  );
-  let (vMatrix, pMatrix) = (
-    vMatrix |> CoordinateTransformationMatrix.View.getMatrixValue,
-    pMatrix |> CoordinateTransformationMatrix.Projection.getMatrixValue,
-  );
+  state
+  |> Result.tryCatch(state => {
+       let (vMatrix, pMatrix) = (
+         Camera.unsafeGetVMatrixByThrow(state),
+         Camera.unsafeGetPMatrixByThrow(state),
+       );
+       let (vMatrix, pMatrix) = (
+         vMatrix |> CoordinateTransformationMatrix.View.getMatrixValue,
+         pMatrix |> CoordinateTransformationMatrix.Projection.getMatrixValue,
+       );
 
-  let state = _initVBOs(gl, state);
+       let state = _initVBOs(gl, state);
 
-  _changeAllGameObjectDataToRenderDataList(
-    Scene.getAllGameObjectData(state),
-    gl,
-    state,
-  )
-  |> Result.tryCatch(renderDataList =>
-       renderDataList
-       |> List.iter(
-            (
-              {
-                mMatrix,
-                vertexBuffer,
-                indexBuffer,
-                indexCount,
-                colors,
-                program,
-              },
-            ) => {
-            Gl.useProgram(program, gl);
+       ((vMatrix, pMatrix), state);
+     })
+  |> Result.bind((((vMatrix, pMatrix), state)) => {
+       _changeAllGameObjectDataToRenderDataList(
+         Scene.getAllGameObjectData(state),
+         gl,
+         state,
+       )
+       |> Result.tryCatch(renderDataList =>
+            renderDataList
+            |> List.iter(
+                 (
+                   {
+                     mMatrix,
+                     vertexBuffer,
+                     indexBuffer,
+                     indexCount,
+                     colors,
+                     program,
+                   },
+                 ) => {
+                 Gl.useProgram(program, gl);
 
-            _sendAttributeData(vertexBuffer, program, gl);
+                 _sendAttributeData(vertexBuffer, program, gl);
 
-            _sendCameraUniformData((vMatrix, pMatrix), program, gl);
+                 _sendCameraUniformData((vMatrix, pMatrix), program, gl);
 
-            _sendModelUniformData((mMatrix, colors), program, gl);
+                 _sendModelUniformData((mMatrix, colors), program, gl);
 
-            Gl.bindBuffer(Gl.getElementArrayBuffer(gl), indexBuffer, gl);
+                 Gl.bindBuffer(
+                   Gl.getElementArrayBuffer(gl),
+                   indexBuffer,
+                   gl,
+                 );
 
-            Gl.drawElements(
-              Gl.getTriangles(gl),
-              indexCount,
-              Gl.getUnsignedShort(gl),
-              0,
-              gl,
-            );
-          })
-     )
-  |> Result.mapSuccess(() => state);
+                 Gl.drawElements(
+                   Gl.getTriangles(gl),
+                   indexCount,
+                   Gl.getUnsignedShort(gl),
+                   0,
+                   gl,
+                 );
+               })
+          )
+       |> Result.mapSuccess(() => state)
+     });
 };

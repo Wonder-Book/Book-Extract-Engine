@@ -1,16 +1,20 @@
 let initAll = (contextParam, state) =>
   state
-  |> DeviceManager.setGl(
-       Gl.getWebgl1Context(View.unsafeGetCanvasByThrow(state), contextParam),
-     )
-  |> Shader.init;
+  |> Result.tryCatch(state => {View.unsafeGetCanvasByThrow(state)})
+  |> Result.bind(canvas => {
+       state
+       |> DeviceManager.setGl(Gl.getWebgl1Context(canvas, contextParam))
+       |> Shader.init
+     });
 
 let loopBody = state => {
-  let gl = DeviceManager.unsafeGetGlByThrow(state);
+  state
+  |> Result.tryCatch(state => {DeviceManager.unsafeGetGlByThrow(state)})
+  |> Result.bind(gl => {
+       DeviceManager.clearColor(gl, state);
 
-  DeviceManager.clearColor(gl, state);
+       Gl.clear(Gl.getColorBufferBit(gl) lor Gl.getDepthBufferBit(gl), gl);
 
-  Gl.clear(Gl.getColorBufferBit(gl) lor Gl.getDepthBufferBit(gl), gl);
-
-  Render.render(gl, state);
+       Render.render(gl, state);
+     });
 };
