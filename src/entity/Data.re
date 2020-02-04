@@ -13,7 +13,7 @@ let createState = () => {
   programData: Shader.Program.createProgramData(),
   cameraData: Camera.createCameraData(),
   viewData: View.createViewData(),
-  gameObjectData: GameObject.createAllGameObjectData(),
+  sceneData: Scene.createSceneData(),
 };
 
 let setState = state => {

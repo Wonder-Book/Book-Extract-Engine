@@ -48,7 +48,7 @@ let _getOrCreateVBOs = ({vertices, indices, vertexBuffer, indexBuffer}, gl) =>
   };
 
 let _initVBOs = (gl, state) =>
-  GameObject.getAllGameObjectData(state)
+  Scene.getAllGameObjectData(state)
   |> List.map(
        ({transformData, geometryData, materialData} as gameObjectData) =>
        {
@@ -58,7 +58,7 @@ let _initVBOs = (gl, state) =>
            |> GameObject.Geometry.setBufferts(_, geometryData),
        }
      )
-  |> GameObject.setAllGameObjectData(_, state);
+  |> Scene.setAllGameObjectData(_, state);
 
 let _getProgram = ({shaderName}, state) =>
   Shader.Program.unsafeGetProgramByNull(
@@ -163,7 +163,7 @@ let render = (gl, state) => {
   let state = _initVBOs(gl, state);
 
   _changeAllGameObjectDataToRenderDataList(
-    GameObject.getAllGameObjectData(state),
+    Scene.getAllGameObjectData(state),
     gl,
     state,
   )

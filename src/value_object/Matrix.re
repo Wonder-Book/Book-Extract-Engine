@@ -77,27 +77,6 @@ let setLookAt = (eye, center, up, mat) => {
 };
 
 let buildPerspective = ((fovy, aspect, near, far), mat) => {
-  /* WonderLog.Contract.requireCheck(
-       () =>
-         WonderLog.(
-           Contract.(
-             Operators.(
-               test(
-                 Log.buildAssertMessage(
-                   ~expect={j|frustum not be null|j},
-                   ~actual={j|be|j},
-                 ),
-                 () => {
-                   let fovy = Js.Math._PI *. fovy /. 180. /. 2.;
-                   Js.Math.sin(fovy) <>=. 0.;
-                 },
-               )
-             )
-           )
-         ),
-       IsDebugMainService.getIsDebug(StateDataMain.stateData),
-     ); */
-
   let fovy = CameraVO.Frustum.Fovy.value(fovy);
 
   Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0.

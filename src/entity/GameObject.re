@@ -65,27 +65,3 @@ module Material = {
 
   let getColors = ({colors}) => colors;
 };
-
-let getAllGameObjectData = state => state.gameObjectData;
-
-let setAllGameObjectData = (allGameObjectData, state) => {
-  ...state,
-  gameObjectData: allGameObjectData,
-};
-
-let createAllGameObjectData = () => [];
-
-let addGameObjectData =
-    (mMatrix, (vertices, indices), (shaderName, colors), state) =>
-  setAllGameObjectData(
-    getAllGameObjectData(state)
-    @ [
-      {
-        transformData: Transform.createTransformData(mMatrix),
-        geometryData:
-          Geometry.createGeometryDataWithGeometryPoints(vertices, indices),
-        materialData: Material.createMaterialData(shaderName, colors),
-      },
-    ],
-    state,
-  );
