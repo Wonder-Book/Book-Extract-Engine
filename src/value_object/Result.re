@@ -25,25 +25,6 @@ let tap = (oneTrackFunc, twoTrackInput) =>
     twoTrackInput,
   );
 
-/* let map = (oneTrackFunc, twoTrackInput) =>
-     either(result => result |> oneTrackFunc |> succeed, fail, twoTrackInput);
-
-   let apply =
-       (
-         ~switchFunc,
-         ~result,
-         ~addFailureFunc,
-         ~handleFailAndSuceessFunc,
-         ~handleSuceessFuncAndFailFunc,
-       ) =>
-     switch (switchFunc, result) {
-     | (Success(func), Success(s)) => Success(func(s))
-     | (Fail(f1), Success(s)) => Fail(handleFailAndSuceessFunc(f1, s))
-     | (Success(func), Fail(f2)) =>
-       Fail(handleSuceessFuncAndFailFunc(func, f2))
-     | (Fail(f1), Fail(f2)) => Fail(addFailureFunc(f1, f2))
-     }; */
-
 let tryCatch = (oneTrackFunc: 'a => 'b, x: 'a): t('b, Js.Exn.t) =>
   try(oneTrackFunc(x) |> succeed) {
   | Js.Exn.Error(e) => fail(e)
