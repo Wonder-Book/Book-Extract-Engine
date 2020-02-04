@@ -7,7 +7,7 @@ module Transform = {
 };
 
 module Geometry = {
-  let createTriangleGeometryData = () => {
+  let createTriangleVertexData = () => {
     open Js.Typed_array;
 
     let vertices =
@@ -30,7 +30,7 @@ module Geometry = {
     (vertices, indices);
   };
 
-  let createGeometryDataWithGeometryPoints = (vertices, indices) => {
+  let createVertexDataWithGeometryPoints = (vertices, indices) => {
     vertices,
     indices,
     vertexBuffer: None,

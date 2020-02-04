@@ -8,7 +8,7 @@ let loop = DirectorJsAPI.loop;
 
 let initAll = DirectorJsAPI.initAll;
 
-let createTriangleGeometryData = GameObjectJsAPI.createTriangleGeometryData;
+let createTriangleVertexData = GameObjectJsAPI.createTriangleVertexData;
 
 let createIdentityMatrix = MatrixJsAPI.createIdentityMatrix;
 

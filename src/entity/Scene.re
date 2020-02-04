@@ -17,7 +17,7 @@ let addGameObjectData =
       {
         transformData: GameObject.Transform.createTransformData(mMatrix),
         geometryData:
-          GameObject.Geometry.createGeometryDataWithGeometryPoints(
+          GameObject.Geometry.createVertexDataWithGeometryPoints(
             vertices,
             indices,
           ),
