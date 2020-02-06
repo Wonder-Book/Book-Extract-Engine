@@ -24,4 +24,4 @@ let addGLSL = ShaderJsAPI.addGLSL;
 
 let setCanvasById = ViewJsAPI.setCanvasById;
 
-let unsafeGetCanvas = ViewJsAPI.unsafeGetCanvas;
+let getCanvas = ViewJsAPI.getCanvas;
