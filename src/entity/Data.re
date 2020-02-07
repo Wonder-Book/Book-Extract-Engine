@@ -9,8 +9,7 @@ let unsafeGetStateByThrow = () =>
 
 let createState = () => {
   deviceManagerData: DeviceManager.createDeviceManagerData(),
-  glslData: Shader.GLSL.createGLSLData(),
-  programData: Shader.Program.createProgramData(),
+  shaderManagerData: ShaderManager.createShaderManagerData(),
   cameraData: Camera.createCameraData(),
   viewData: View.createViewData(),
   sceneData: Scene.createSceneData(),

@@ -11,6 +11,11 @@ type programData = {
   programMap: ImmutableHashMap.t2(ShaderName.t, Gl.program),
 };
 
+type shaderManagerData = {
+  glslData,
+  programData,
+};
+
 type geometryData = {
   vertices: GeometryPoints.Vertices.t,
   indices: GeometryPoints.Indices.t,
@@ -45,8 +50,7 @@ type viewData = {canvas: option(canvas)};
 type state = {
   viewData,
   deviceManagerData,
-  glslData,
-  programData,
+  shaderManagerData,
   cameraData,
   sceneData,
 };

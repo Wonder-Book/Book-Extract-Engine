@@ -20,7 +20,7 @@ let setTranslation = MatrixJsAPI.setTranslation;
 
 let addGameObjectData = SceneJsAPI.addGameObjectData;
 
-let addGLSL = ShaderJsAPI.addGLSL;
+let addGLSL = ShaderManagerJsAPI.addGLSL;
 
 let setCanvasById = ViewJsAPI.setCanvasById;
 

@@ -1,55 +1,18 @@
 open DataType;
 
 module GLSL = {
-  let createGLSLData = () => {glslMap: ImmutableHashMap.createEmpty()};
-
-  let _getGLSLMap = state => state.glslData.glslMap;
-
-  let _setGLSLMap = (glslMap, state) => {
-    ...state,
-    glslData: {
-      ...state.glslData,
-      glslMap,
-    },
-  };
-
-  let addGLSL = (shaderName, glslData, state) =>
-    _setGLSLMap(
-      _getGLSLMap(state)
-      |> ImmutableHashMap.set(ShaderName.value(shaderName), glslData),
-      state,
-    );
-
-  let getAllValidGLSLEntries = state =>
-    _getGLSLMap(state) |> ImmutableHashMap.getValidEntries;
-
-  let getAllValidGLSLEntryList = state =>
-    state |> getAllValidGLSLEntries |> Array.to_list;
+  let addGLSL = (shaderName, glslData, glslMap) =>
+    glslMap |> ImmutableHashMap.set(ShaderName.value(shaderName), glslData);
 };
 
 module Program = {
-  let createProgramData = () => {programMap: ImmutableHashMap.createEmpty()};
-
   let createProgram = gl => gl |> Gl.createProgram;
 
-  let _getProgramMap = state => state.programData.programMap;
+  let unsafeGetProgramByNull = (shaderName, programMap) =>
+    programMap |> ImmutableHashMap.unsafeGetByNull(shaderName);
 
-  let _setProgramMap = (programMap, state) => {
-    ...state,
-    programData: {
-      ...state.programData,
-      programMap,
-    },
-  };
-
-  let unsafeGetProgramByNull = (shaderName, state) =>
-    _getProgramMap(state) |> ImmutableHashMap.unsafeGetByNull(shaderName);
-
-  let setProgram = (shaderName, program, state) =>
-    _setProgramMap(
-      _getProgramMap(state) |> ImmutableHashMap.set(shaderName, program),
-      state,
-    );
+  let setProgram = (shaderName, program, programMap) =>
+    programMap |> ImmutableHashMap.set(shaderName, program);
 };
 
 let _compileShader = (gl, glslSource: string, shader) => {
@@ -85,7 +48,7 @@ let _linkProgram = (program, gl) => {
     : ();
 };
 
-let _initShader = (vsSource: string, fsSource: string, gl, program) => {
+let initShader = (vsSource: string, fsSource: string, gl, program) => {
   let vs =
     _compileShader(
       gl,
@@ -141,36 +104,4 @@ let _initShader = (vsSource: string, fsSource: string, gl, program) => {
   Gl.deleteShader(fs, gl);
 
   program;
-};
-
-let _changeGLSLDataListToInitShaderDataList = glslDataList =>
-  glslDataList
-  |> List.map(((shaderName, (vs, fs))) =>
-       (
-         {shaderName, vs: GLSLVO.VS.value(vs), fs: GLSLVO.FS.value(fs)}: InitShaderDataType.initShaderData
-       )
-     );
-
-let init = (state: DataType.state): Result.t(DataType.state, Js.Exn.t) => {
-  state
-  |> Result.tryCatch(state => {DeviceManager.unsafeGetGlByThrow(state)})
-  |> Result.bind(gl => {
-       GLSL.getAllValidGLSLEntryList(state)
-       |> _changeGLSLDataListToInitShaderDataList
-       |> Result.tryCatch(initShaderDataList =>
-            initShaderDataList
-            |> List.fold_left(
-                 (
-                   state,
-                   {shaderName, vs, fs}: InitShaderDataType.initShaderData,
-                 ) =>
-                   Program.setProgram(
-                     shaderName,
-                     gl |> Program.createProgram |> _initShader(vs, fs, gl),
-                     state,
-                   ),
-                 state,
-               )
-          )
-     });
 };

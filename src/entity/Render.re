@@ -61,7 +61,7 @@ let _initVBOs = (gl, state) =>
   |> Scene.setAllGameObjectData(_, state);
 
 let _getProgram = ({shaderName}, state) =>
-  Shader.Program.unsafeGetProgramByNull(
+  ShaderManager.Program.unsafeGetProgramByNull(
     shaderName |> ShaderName.value,
     state,
   );

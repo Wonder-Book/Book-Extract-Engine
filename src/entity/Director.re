@@ -4,7 +4,7 @@ let initAll = (contextParam, state) =>
   |> Result.bind(canvas => {
        state
        |> DeviceManager.setGl(Gl.getWebgl1Context(canvas, contextParam))
-       |> Shader.init
+       |> ShaderManager.init
      });
 
 let loopBody = state => {
