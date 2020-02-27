@@ -7,7 +7,8 @@ gulp.task("generateIndex", function (done) {
         destDir = "./src/";
 
     generate.generate("/", rootDir, ["**/api/**/*.re"], destDir, {
-        exclude: []
+        exclude: [],
+        replaceAPIModuleNameFunc: (moduleName) => moduleName.replace("JsAPI", "")
     });
 
     done();

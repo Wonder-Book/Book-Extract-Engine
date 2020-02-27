@@ -1,0 +1,1 @@
+let setCanvasById = CanvasApService.setCanvasById;

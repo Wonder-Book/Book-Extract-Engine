@@ -1,1 +1,0 @@
-let createTriangleVertexData = GameObject.Geometry.createTriangleVertexData;

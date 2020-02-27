@@ -15,7 +15,7 @@
         "webpack": "^4.17.1",
         "webpack-cli": "^3.1.0",
         "gulp": "^3.9.1",
-        "tiny-wonder-generate-index": "^0.0.5"
+        "tiny-wonder-generate-index": "^0.0.6"
     },
     "dependencies": {
         "bs-platform": "^7.0.1"
