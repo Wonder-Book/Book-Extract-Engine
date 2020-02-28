@@ -1,1 +1,1 @@
-type poContainer = {mutable mainPO: MainPOType.mainPO};
+type poContainer = {mutable po: POType.po};

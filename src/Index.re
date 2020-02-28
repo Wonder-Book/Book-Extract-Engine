@@ -5,4 +5,11 @@
 
 
       }
+      
+
+      module Graphics{
+        let setClearColor = GraphicsJsAPI.setClearColor;
+
+
+      }
     

@@ -1,10 +1,10 @@
-open MainPOType;
+open POType;
 
 let getCanvas = () => {
-  let mainPO = ContainerRepo.getMainPO();
+  let po = ContainerManager.getPO();
 
   /*
-   mainPO.canvas类型为option(DomExtend.htmlElement)
+   po.canvas类型为option(DomExtend.htmlElement)
    此处有两个方案：
    1、调用OptionContainerDoService.unsafeGetByThrow，直接返回canvas的值
    2、调用OptionContainerDoService.get，用Result包装canvas的值
@@ -15,12 +15,24 @@ let getCanvas = () => {
 
    所以我们使用方案2
    */
-  mainPO.canvas |> OptionContainerDoService.get;
+  po.canvas |> OptionContainerDoService.get;
 };
 
 let setCanvas = canvas => {
-  let mainPO = ContainerRepo.getMainPO();
+  let po = ContainerManager.getPO();
 
   //这里do与main po相同（canvas的类型都为DomExtend.htmlElement），所以不需要转换
-  {...mainPO, canvas: Some(canvas)} |> ContainerRepo.setMainPO;
+  {...po, canvas: Some(canvas)} |> ContainerManager.setPO;
+};
+
+let getContext = () => {
+  let po = ContainerManager.getPO();
+
+  po.context;
+};
+
+let setContext = context => {
+  let po = ContainerManager.getPO();
+
+  {...po, context} |> ContainerManager.setPO;
 };

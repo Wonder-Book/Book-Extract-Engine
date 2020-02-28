@@ -1,3 +1,1 @@
-let poContainer: ContainerType.poContainer = {
-  mainPO: CreateMainRepo.create(),
-};
+let poContainer: ContainerType.poContainer = {po: CreateRepo.create()};
