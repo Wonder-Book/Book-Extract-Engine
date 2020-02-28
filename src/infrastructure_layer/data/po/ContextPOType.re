@@ -1,0 +1,1 @@
+type context = {clearColor: (float, float, float, float)};

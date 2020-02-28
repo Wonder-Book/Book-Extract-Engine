@@ -3,6 +3,6 @@ type t = DomExtend.htmlElement;
 
 let setCanvasById = canvasId =>
   //依赖主仓库：将do转成main po，写到po container中
-  MainRepo.setCanvas(
+  Repo.setCanvas(
     DomExtend.querySelector(DomExtend.document, {j|#$canvasId|j}),
   );
