@@ -1,7 +1,6 @@
 let addGLSL = (shaderName, glsl) => {
   ShaderManagerRepo.addGLSL(
-    ShaderShaderEntity.create(shaderName),
-    GLSLShaderVO.create(glsl),
+    ShaderShaderEntity.create(shaderName, GLSLShaderVO.create(glsl)),
   );
 
   //用于运行测试

@@ -1,1 +1,1 @@
-type t = {glsls: list((ShaderShaderEntity.t, GLSLShaderVO.t))};
+type t = {glsls: list(ShaderShaderEntity.t)};

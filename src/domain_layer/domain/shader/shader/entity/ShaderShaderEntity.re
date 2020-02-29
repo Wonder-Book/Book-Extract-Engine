@@ -1,11 +1,16 @@
 type shaderName = string;
 
 type t =
-  | Shader(shaderName);
+  | Shader(shaderName, GLSLShaderVO.t);
 
-let create = shaderName => Shader(shaderName);
+let create = (shaderName, glsl) => Shader(shaderName, glsl);
 
-let value = shader =>
+let getShaderName = shader =>
   switch (shader) {
-  | Shader(shaderName) => shaderName
+  | Shader(shaderName, glsl) => shaderName
+  };
+
+let getGLSL = shader =>
+  switch (shader) {
+  | Shader(shaderName, glsl) => glsl
   };
