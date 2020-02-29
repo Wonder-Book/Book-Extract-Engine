@@ -1,5 +1,5 @@
 let setClearColor = clearColor => {
-  Color4ContainerVO.create(clearColor) |> ContextRepo.setClearColor;
+  ContextContextEntity.setClearColor(Color4ContainerVO.create(clearColor));
 
   //用于运行测试
   Js.log(clearColor);

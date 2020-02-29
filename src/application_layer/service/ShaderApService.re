@@ -1,5 +1,5 @@
 let addGLSL = (shaderName, glsl) => {
-  ShaderManagerRepo.addGLSL(
+  ShaderManagerShaderEntity.addGLSL(
     ShaderShaderEntity.create(shaderName, GLSLShaderVO.create(glsl)),
   );
 
