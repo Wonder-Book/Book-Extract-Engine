@@ -25,6 +25,56 @@
     var clearColor = [0.0, 0.0, 0.0, 1.0];
 
     wd.Graphics.setClearColor(clearColor);
+
+
+    //准备两组GLSL
+    var vs1 = `
+precision mediump float;
+attribute vec3 a_position;
+uniform mat4 u_pMatrix;
+uniform mat4 u_vMatrix;
+uniform mat4 u_mMatrix;
+
+void main() {
+gl_Position = u_pMatrix * u_vMatrix * u_mMatrix * vec4(a_position, 1.0);
+}
+`;
+    var fs1 = `
+precision mediump float;
+
+uniform vec3 u_color0;
+
+void main(){
+gl_FragColor = vec4(u_color0, 1.0);
+}
+`;
+    var vs2 = `
+precision mediump float;
+attribute vec3 a_position;
+uniform mat4 u_pMatrix;
+uniform mat4 u_vMatrix;
+uniform mat4 u_mMatrix;
+
+void main() {
+gl_Position = u_pMatrix * u_vMatrix * u_mMatrix * vec4(a_position, 1.0);
+}
+`;
+    var fs2 = `
+precision mediump float;
+
+uniform vec3 u_color0;
+uniform vec3 u_color1;
+
+void main(){
+gl_FragColor = vec4(u_color0 * u_color1, 1.0);
+}
+`;
+    //准备两个Shader的名称
+    var shaderName1 = "shader1";
+    var shaderName2 = "shader2";
+
+    wd.Shader.addGLSL(shaderName1, [vs1, fs1]);
+    wd.Shader.addGLSL(shaderName2, [vs2, fs2]);
   </script>
 </body>
 

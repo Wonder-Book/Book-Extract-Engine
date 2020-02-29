@@ -1,5 +1,3 @@
-open POType;
-
 let getCanvas = () => {
   let po = ContainerManager.getPO();
 
@@ -35,4 +33,16 @@ let setContext = context => {
   let po = ContainerManager.getPO();
 
   {...po, context} |> ContainerManager.setPO;
+};
+
+let getShaderManager = () => {
+  let po = ContainerManager.getPO();
+
+  po.shaderManager;
+};
+
+let setShaderManager = shaderManager => {
+  let po = ContainerManager.getPO();
+
+  {...po, shaderManager} |> ContainerManager.setPO;
 };

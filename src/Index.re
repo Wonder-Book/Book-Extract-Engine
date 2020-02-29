@@ -12,4 +12,11 @@
 
 
       }
+      
+
+      module Shader{
+        let addGLSL = ShaderJsAPI.addGLSL;
+
+
+      }
     

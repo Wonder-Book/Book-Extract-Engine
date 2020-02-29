@@ -1,5 +1,3 @@
-open POType;
-
 let getClearColor = () => {
   Repo.getContext().clearColor;
 };

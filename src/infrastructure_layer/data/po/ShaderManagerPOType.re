@@ -1,0 +1,1 @@
+type shaderManager = {glsls: list((string, (string, string)))};
