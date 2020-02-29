@@ -16,4 +16,17 @@ type triangle = {
   material,
 };
 
-type scene = {triangles: list(triangle)};
+type camera = {
+  eye: (float, float, float),
+  center: (float, float, float),
+  up: (float, float, float),
+  near: float,
+  far: float,
+  fovy: float,
+  aspect: float,
+};
+
+type scene = {
+  triangles: list(triangle),
+  camera: option(camera),
+};

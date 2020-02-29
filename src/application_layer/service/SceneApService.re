@@ -23,3 +23,22 @@ let addTriangle = (position, (vertices, indices), (shaderName, colors)) => {
   //用于运行测试
   Js.log(Repo.getScene());
 };
+
+let setCamera = ((eye, center, up), (near, far, fovy, aspect)) => {
+  SceneSceneGraphEntity.setCamera(
+    (
+      EyeSceneGraphVO.create(eye),
+      CenterSceneGraphVO.create(center),
+      UpSceneGraphVO.create(up),
+    ),
+    (
+      NearSceneGraphVO.create(near),
+      FarSceneGraphVO.create(far),
+      FovySceneGraphVO.create(fovy),
+      AspectSceneGraphVO.create(aspect),
+    ),
+  );
+
+  //用于运行测试
+  Js.log(Repo.getScene());
+};

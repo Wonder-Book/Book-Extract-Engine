@@ -15,7 +15,9 @@
       
 
       module Scene{
-        let addTriangle = SceneJsAPI.addTriangle;
+        let setCamera = SceneJsAPI.setCamera;
+
+let addTriangle = SceneJsAPI.addTriangle;
 
 let createTriangleVertexData = SceneJsAPI.createTriangleVertexData;
 

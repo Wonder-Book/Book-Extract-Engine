@@ -97,6 +97,23 @@ gl_FragColor = vec4(u_color0 * u_color1, 1.0);
     wd.Scene.addTriangle(position1, [vertices1, indices1], [shaderName1, colors1]);
     wd.Scene.addTriangle(position2, [vertices2, indices2], [shaderName2, colors2]);
     wd.Scene.addTriangle(position3, [vertices3, indices3], [shaderName1, colors3]);
+
+
+    //准备相机数据
+    var [eye, center, up] = [
+      [0.0, 0.0, 5.0],
+      [0.0, 0.0, -100.0],
+      [0.0, 1.0, 0.0]
+    ];
+    var canvas = document.querySelector("#webgl");
+    var [near, far, fovy, aspect] = [
+      1.0,
+      100.0,
+      30.0,
+      canvas.width / canvas.height
+    ];
+
+    wd.Scene.setCamera([eye, center, up], [near, far, fovy, aspect]);
   </script>
 </body>
 

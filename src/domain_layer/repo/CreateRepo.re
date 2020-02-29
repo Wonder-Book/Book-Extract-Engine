@@ -10,5 +10,6 @@ let create = () => {
   },
   scene: {
     triangles: [],
+    camera: None,
   },
 };

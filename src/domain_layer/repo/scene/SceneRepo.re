@@ -15,3 +15,16 @@ let addTriangle = (position, (vertices, indices), (shader, colors)) => {
     ],
   });
 };
+
+let setCamera = ((eye, center, up), (near, far, fovy, aspect)) => {
+  Repo.setScene({
+    ...Repo.getScene(),
+    camera:
+      Some(
+        CameraSceneRepo.create(
+          (eye, center, up),
+          (near, far, fovy, aspect),
+        ),
+      ),
+  });
+};

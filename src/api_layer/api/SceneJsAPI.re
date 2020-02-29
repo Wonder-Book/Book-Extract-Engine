@@ -8,3 +8,5 @@ let addTriangle = (position, (vertices, indices), (shaderName, colors)) => {
     (shaderName, colors |> Array.to_list),
   );
 };
+
+let setCamera = SceneApService.setCamera;
