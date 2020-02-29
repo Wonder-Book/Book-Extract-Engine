@@ -2,8 +2,7 @@ let getCanvas = () => {
   let po = ContainerManager.getPO();
 
   /*
-   po.canvas类型为option(DomExtend.htmlElement)
-   此处有两个方案：
+   po.canvas类型为option(DomExtend.htmlElement)，我们要将其转换为DO，有两个方案：
    1、调用OptionContainerDoService.unsafeGetByThrow，直接返回canvas的值
    2、调用OptionContainerDoService.get，用Result包装canvas的值
 
@@ -19,7 +18,7 @@ let getCanvas = () => {
 let setCanvas = canvas => {
   let po = ContainerManager.getPO();
 
-  //这里do与main po相同（canvas的类型都为DomExtend.htmlElement），所以不需要转换
+  //do类型为DomExtend.htmlElement，需要将其转换为po的类型option(DomExtend.htmlElement)
   {...po, canvas: Some(canvas)} |> ContainerManager.setPO;
 };
 

@@ -1,8 +1,8 @@
-//定义实体Canvas的数据->“画布”的类型
+//定义实体Canvas的数据，即“画布”的类型
 type t = DomExtend.htmlElement;
 
 let setCanvasById = canvasId =>
-  //依赖主仓库：将do转成main po，写到po container中
+  //使用仓库将do转成po，写到po container中
   Repo.setCanvas(
     DomExtend.querySelector(DomExtend.document, {j|#$canvasId|j}),
   );
