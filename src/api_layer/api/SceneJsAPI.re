@@ -1,0 +1,1 @@
+let createTriangleVertexData = SceneApService.createTriangleVertexData;

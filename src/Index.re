@@ -14,6 +14,13 @@
       }
       
 
+      module Scene{
+        let createTriangleVertexData = SceneJsAPI.createTriangleVertexData;
+
+
+      }
+      
+
       module Shader{
         let addGLSL = ShaderJsAPI.addGLSL;
 
