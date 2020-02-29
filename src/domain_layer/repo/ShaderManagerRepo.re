@@ -2,14 +2,11 @@ open ShaderManagerPOType;
 
 let _getGLSLs = ({glsls}) => glsls;
 
-let addGLSL = shader => {
+let addGLSL = (shader, glsl) => {
   Repo.setShaderManager({
     ...Repo.getShaderManager(),
     glsls: [
-      (
-        ShaderShaderEntity.getShaderName(shader),
-        shader |> ShaderShaderEntity.getGLSL |> GLSLShaderVO.value,
-      ),
+      (ShaderShaderEntity.getId(shader), GLSLShaderVO.value(glsl)),
       ..._getGLSLs(Repo.getShaderManager()),
     ],
   });

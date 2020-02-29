@@ -1,3 +1,8 @@
+type t = {
+  vertices: VerticesSceneGraphVO.t,
+  indices: IndicesSceneGraphVO.t,
+};
+
 let createTriangleVertexData = () => {
   open Js.Typed_array;
 

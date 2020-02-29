@@ -8,4 +8,7 @@ let create = () => {
   shaderManager: {
     glsls: [],
   },
+  scene: {
+    triangles: [],
+  },
 };

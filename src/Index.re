@@ -15,7 +15,9 @@
       
 
       module Scene{
-        let createTriangleVertexData = SceneJsAPI.createTriangleVertexData;
+        let addTriangle = SceneJsAPI.addTriangle;
+
+let createTriangleVertexData = SceneJsAPI.createTriangleVertexData;
 
 
       }

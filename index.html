@@ -75,6 +75,28 @@ gl_FragColor = vec4(u_color0 * u_color1, 1.0);
 
     wd.Shader.addGLSL(shaderName1, [vs1, fs1]);
     wd.Shader.addGLSL(shaderName2, [vs2, fs2]);
+
+
+    //调用API，准备三个三角形的顶点数据
+    var [vertices1, indices1] = wd.Scene.createTriangleVertexData();
+    var [vertices2, indices2] = wd.Scene.createTriangleVertexData();
+    var [vertices3, indices3] = wd.Scene.createTriangleVertexData();
+    //准备三个三角形的位置数据
+    var [position1, position2, position3] = [
+      [0.75, 0.0, 0.0],
+      [-0.0, 0.0, 0.5],
+      [-0.5, 0.0, -2.0]
+    ];
+    //准备三个三角形的颜色数据
+    var [colors1, colors2, colors3] = [
+      [[1.0, 0.0, 0.0]],
+      [[0.0, 0.8, 0.0], [0.0, 0.5, 0.0]],
+      [[0.0, 0.0, 1.0]]
+    ];
+
+    wd.Scene.addTriangle(position1, [vertices1, indices1], [shaderName1, colors1]);
+    wd.Scene.addTriangle(position2, [vertices2, indices2], [shaderName2, colors2]);
+    wd.Scene.addTriangle(position3, [vertices3, indices3], [shaderName1, colors3]);
   </script>
 </body>
 

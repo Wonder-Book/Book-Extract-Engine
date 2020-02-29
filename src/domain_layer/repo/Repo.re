@@ -45,3 +45,15 @@ let setShaderManager = shaderManager => {
 
   {...po, shaderManager} |> ContainerManager.setPO;
 };
+
+let getScene = () => {
+  let po = ContainerManager.getPO();
+
+  po.scene;
+};
+
+let setScene = scene => {
+  let po = ContainerManager.getPO();
+
+  {...po, scene} |> ContainerManager.setPO;
+};
