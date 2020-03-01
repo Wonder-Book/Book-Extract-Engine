@@ -114,6 +114,19 @@ gl_FragColor = vec4(u_color0 * u_color1, 1.0);
     ];
 
     wd.Scene.setCamera([eye, center, up], [near, far, fovy, aspect]);
+
+
+    //准备webgl上下文的配置项
+    var contextConfig = {
+      "alpha": true,
+      "depth": true,
+      "stencil": false,
+      "antialias": true,
+      "premultipliedAlpha": true,
+      "preserveDrawingBuffer": false,
+    };
+
+    wd.Director.init(contextConfig);
   </script>
 </body>
 

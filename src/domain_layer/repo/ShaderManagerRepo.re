@@ -11,3 +11,21 @@ let addGLSL = (shader, glsl) => {
     ],
   });
 };
+
+let getAllGLSL = () => {
+  Repo.getShaderManager().glsls
+  |> List.map(((shaderId, (vs, fs))) => {
+       (ShaderShaderEntity.create(shaderId), GLSLShaderVO.create((vs, fs)))
+     });
+};
+
+let _getProgramMap = ({programMap}) => programMap;
+
+let setProgram = (shaderId, program) => {
+  Repo.setShaderManager({
+    ...Repo.getShaderManager(),
+    programMap:
+      _getProgramMap(Repo.getShaderManager())
+      |> ImmutableHashMap.set(shaderId, program),
+  });
+};

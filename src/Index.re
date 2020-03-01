@@ -7,6 +7,13 @@
       }
       
 
+      module Director{
+        let init = DirectorJsAPI.init;
+
+
+      }
+      
+
       module Graphics{
         let setClearColor = GraphicsJsAPI.setClearColor;
 

@@ -1,0 +1,1 @@
+let init = DirectorApService.init;
