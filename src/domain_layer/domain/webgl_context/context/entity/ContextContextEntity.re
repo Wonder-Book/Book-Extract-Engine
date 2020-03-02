@@ -14,6 +14,8 @@ let setGl = (contextConfigJsObj, canvas) => {
 
 let createProgram = gl => gl |> WebGL1.createProgram;
 
+let useProgram = (program, gl) => WebGL1.useProgram(program, gl);
+
 let setProgram = (shaderId, program) => {
   ShaderManagerRepo.setProgram(shaderId, program);
 };
@@ -107,3 +109,63 @@ let initShader = (vsSource: string, fsSource: string, program, gl) => {
 
   program;
 };
+
+let clearColor = gl => {
+  let (r, g, b, a) = ContextRepo.getClearColor();
+
+  WebGL1.clearColor(r, g, b, a, gl);
+};
+
+let clearCanvas = gl => {
+  WebGL1.clear(
+    WebGL1.getColorBufferBit(gl) lor WebGL1.getDepthBufferBit(gl),
+    gl,
+  );
+};
+
+let enableDepthTest = gl => gl |> WebGL1.enable(WebGL1.getDepthTest(gl));
+
+let enableBackCullFace = gl => {
+  WebGL1.enable(WebGL1.getCullFace(gl), gl);
+  WebGL1.cullFace(WebGL1.getBack(gl), gl);
+};
+
+let getAttribLocation = (program, name, gl) =>
+  WebGL1.getAttribLocation(program, name, gl);
+
+let getUniformLocation = (program, name, gl) =>
+  WebGL1.getUniformLocation(program, name, gl);
+
+let unsafeGetUniformLocation = (program, name, gl) =>
+  getUniformLocation(program, name, gl) |> Js.Null.getExn;
+
+let bindBuffer = (bufferTarget, buffer, gl) =>
+  WebGL1.bindBuffer(bufferTarget, buffer, gl);
+
+let vertexAttribPointer =
+    (~gl, ~size, ~location, ~type_=WebGL1.getFloat(gl), ()) =>
+  WebGL1.vertexAttribPointer(location, size, type_, false, 0, 0, gl);
+
+let enableVertexAttribArray = (location, gl) =>
+  WebGL1.enableVertexAttribArray(location, gl);
+
+let getArrayBuffer = gl => gl |> WebGL1.getArrayBuffer;
+
+let getElementArrayBuffer = gl => gl |> WebGL1.getElementArrayBuffer;
+
+let uniform3f = (location, x, y, z, gl) =>
+  WebGL1.uniform3f(location, x, y, z, gl);
+
+let uniformMatrix4fv = (~gl, ~location, ~value, ~transpose=false, ()) =>
+  WebGL1.uniformMatrix4fv(location, transpose, value, gl);
+
+let drawElements =
+    (
+      ~gl,
+      ~count,
+      ~mode=WebGL1.getTriangles(gl),
+      ~type_=WebGL1.getUnsignedShort(gl),
+      ~offset=0,
+      (),
+    ) =>
+  WebGL1.drawElements(mode, count, type_, offset, gl);

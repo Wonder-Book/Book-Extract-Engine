@@ -1,6 +1,7 @@
 type t = {
   vertices: VerticesSceneGraphVO.t,
   indices: IndicesSceneGraphVO.t,
+  vbo: option(VBOVBOManagerEntity.t),
 };
 
 let createTriangleVertexData = () => {
@@ -13,4 +14,8 @@ let createTriangleVertexData = () => {
   let indices = Uint16Array.make([|0, 1, 2|]) |> IndicesSceneGraphVO.create;
 
   (vertices, indices);
+};
+
+let hasVBO = vbo => {
+  vbo |> Js.Option.isSome;
 };

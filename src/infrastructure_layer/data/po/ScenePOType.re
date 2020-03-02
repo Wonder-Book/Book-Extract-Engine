@@ -1,8 +1,11 @@
 type transform = {position: (float, float, float)};
 
+type vboId = int;
+
 type geometry = {
   vertices: Js.Typed_array.Float32Array.t,
   indices: Js.Typed_array.Uint16Array.t,
+  vbo: option(vboId),
 };
 
 type material = {

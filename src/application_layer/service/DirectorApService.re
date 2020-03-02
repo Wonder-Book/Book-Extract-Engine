@@ -9,3 +9,22 @@ let init = contextConfigJsObj => {
      })
   |> ResultContainerVO.handleFail(Error.throwError);
 };
+
+let _loopBody = () => {
+  ClearColorClearColorDoService.clearColor()
+  |> ResultContainerVO.bind(() => {
+       ClearCanvasClearCanvasDoService.clearCanvas()
+       |> ResultContainerVO.bind(() => {RenderRenderDoService.render()})
+     });
+};
+
+let rec _loop = () =>
+  DomExtend.requestAnimationFrame((time: float) => {
+    _loopBody() |> ResultContainerVO.handleFail(Error.throwError) |> ignore;
+
+    _loop() |> ignore;
+  });
+
+let start = () => {
+  _loop();
+};

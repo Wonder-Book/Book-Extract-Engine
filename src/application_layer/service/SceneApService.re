@@ -1,5 +1,10 @@
 let createTriangleVertexData = () => {
-  let data = GeometrySceneGraphVO.createTriangleVertexData();
+  let (vertices, indices) = GeometrySceneGraphVO.createTriangleVertexData();
+
+  let data = (
+    vertices |> VerticesSceneGraphVO.value,
+    indices |> IndicesSceneGraphVO.value,
+  );
 
   //用于运行测试
   Js.log(data);

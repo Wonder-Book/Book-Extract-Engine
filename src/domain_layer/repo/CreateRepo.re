@@ -14,4 +14,9 @@ let create = () => {
     triangles: [],
     camera: None,
   },
+  vboManager: {
+    maximumId: 0,
+    vertexBufferMap: ImmutableSparseMap.createEmpty(),
+    indexBufferMap: ImmutableSparseMap.createEmpty(),
+  },
 };

@@ -1,19 +1,15 @@
-type t('a) = Js.Dict.t(Js.Nullable.t('a));
+type t('key, 'value) = HashMapContainerType.t('key, 'value);
 
-type t2('key, 'a) = Js.Dict.t(Js.Nullable.t('a));
+let createEmpty = HashMapContainer.createEmpty;
 
-let createEmpty = HashMap.createEmpty;
+let set =
+    (key: string, value: 'a, map: HashMapContainerType.t2('a))
+    : HashMapContainerType.t2('a) => {
+  let newMap = map |> HashMapContainer.copy;
 
-let set = (key: string, value: 'a, map: t('a)): t('a) => {
-  let newMap = map |> HashMap.copy;
-
-  Js.Dict.set(newMap, key, value |> HashMapType.notNullableToNullable);
+  Js.Dict.set(newMap, key, value);
 
   newMap;
 };
 
-let get = HashMap.get;
-
-let unsafeGetByNull = HashMap.unsafeGetByNull;
-
-let getValidEntries = HashMap.getValidEntries;
+let get = HashMapContainer.get;

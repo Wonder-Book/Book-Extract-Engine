@@ -1,5 +1,7 @@
-type t2('key, 'a) = ImmutableHashMapContainerVO.t2('key, 'a);
+type t('key, 'a) = ImmutableHashMapContainerVO.t('key, 'a);
 
 let createEmpty = ImmutableHashMapContainerVO.createEmpty;
+
+let get = ImmutableHashMapContainerVO.get;
 
 let set = ImmutableHashMapContainerVO.set;

@@ -1,7 +1,7 @@
 type t = {
   glsls: list((ShaderShaderEntity.t, GLSLShaderVO.t)),
   programMap:
-    ImmutableHashMapContainerVO.t2(ShaderShaderEntity.t, ProgramShaderVO.t),
+    ImmutableHashMapContainerVO.t(ShaderShaderEntity.t, ProgramShaderVO.t),
 };
 
 let addGLSL = (shader, glsl) => {
@@ -10,4 +10,8 @@ let addGLSL = (shader, glsl) => {
 
 let getAllGLSL = () => {
   ShaderManagerRepo.getAllGLSL();
+};
+
+let getProgram = shader => {
+  ShaderManagerRepo.getProgram(shader);
 };

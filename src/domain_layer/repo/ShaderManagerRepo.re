@@ -21,6 +21,11 @@ let getAllGLSL = () => {
 
 let _getProgramMap = ({programMap}) => programMap;
 
+let getProgram = shader => {
+  _getProgramMap(Repo.getShaderManager())
+  |> ImmutableHashMap.get(ShaderShaderEntity.getId(shader));
+};
+
 let setProgram = (shaderId, program) => {
   Repo.setShaderManager({
     ...Repo.getShaderManager(),

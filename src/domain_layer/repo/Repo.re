@@ -3,7 +3,7 @@ let getCanvas = () => {
 
   /*
    po.canvas类型为option(DomExtend.htmlElement)，我们要将其转换为DO，有两个方案：
-   1、调用OptionContainerDoService.unsafeGetByThrow，直接返回canvas的值
+   1、调用OptionContainerDoService.unsafeGet，直接返回canvas的值
    2、调用OptionContainerDoService.get，用Result包装canvas的值
 
    考虑到：
@@ -56,4 +56,16 @@ let setScene = scene => {
   let po = ContainerManager.getPO();
 
   {...po, scene} |> ContainerManager.setPO;
+};
+
+let getVBOManager = () => {
+  let po = ContainerManager.getPO();
+
+  po.vboManager;
+};
+
+let setVBOManager = vboManager => {
+  let po = ContainerManager.getPO();
+
+  {...po, vboManager} |> ContainerManager.setPO;
 };

@@ -9,3 +9,7 @@ let value = indices =>
   switch (indices) {
   | Indices(value) => value
   };
+
+let map = (f, indices) => indices |> value |> f;
+
+let length = indices => indices |> map(Uint16Array.length);
