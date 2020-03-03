@@ -17,5 +17,5 @@ let createTriangleVertexData = () => {
 };
 
 let hasVBO = vbo => {
-  vbo |> Js.Option.isSome;
+  vbo |> OptionContainerDoService.isSome;
 };
