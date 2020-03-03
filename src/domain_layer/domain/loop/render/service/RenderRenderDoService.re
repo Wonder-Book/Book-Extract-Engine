@@ -13,13 +13,16 @@ let _initVBOs = gl => {
            ();
          }
          : {
-           SceneSceneGraphEntity.setVBO(
-             VBOManagerVBOManagerEntity.addVBO(
-               VBOVBOManagerEntity.createVertexBuffer(vertices, gl),
-               VBOVBOManagerEntity.createIndexBuffer(indices, gl),
-             ),
-             triangleIndex,
-           );
+           let vbo = VBOManagerVBOManagerEntity.createVBO();
+
+           (
+             VBOVBOManagerEntity.createVertexBuffer(gl),
+             VBOVBOManagerEntity.createIndexBuffer(gl),
+           )
+           |> VBOManagerVBOManagerEntity.initVBO(gl, (vertices, indices))
+           |> VBOManagerVBOManagerEntity.addVBO(vbo);
+
+           SceneSceneGraphEntity.setVBO(vbo, triangleIndex);
          };
      });
 };

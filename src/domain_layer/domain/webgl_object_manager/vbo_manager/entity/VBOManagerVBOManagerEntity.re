@@ -12,29 +12,26 @@ type t = {
     ),
 };
 
-// let hasVBO = vbo => {
-//   VBOManagerRepo.hashVBO(vbo);
-// };
-
-// let _genearteId = () => {
-// let newId =  VBOManagerRepo.getMaximumId() |> VBOVBOManagerEntity.buildNewId;
-
-// VBOVBOManagerEntity.increaseMaximumId(newId)
-// |> VBOManagerRepo.setMaximumId;
-
-// newId
-
-// };
-
-let addVBO = (vertexBuffer, indexBuffer) => {
+let createVBO = () => {
   let (newId, maximumId) =
     VBOManagerRepo.getMaximumId() |> VBOVBOManagerEntity.generateId;
 
   VBOManagerRepo.setMaximumId(maximumId);
 
-  VBOManagerRepo.addVBO(newId, vertexBuffer, indexBuffer);
-
   newId;
+};
+
+let initVBO = (gl, (vertices, indices), (vertexBuffer, indexBuffer)) => {
+  (
+    VBOVBOManagerEntity.createVertexBuffer(gl)
+    |> VBOVBOManagerEntity.initVertexBuffer(gl, vertices),
+    VBOVBOManagerEntity.createIndexBuffer(gl)
+    |> VBOVBOManagerEntity.initIndexBuffer(gl, indices),
+  );
+};
+
+let addVBO = (vbo, (vertexBuffer, indexBuffer)) => {
+  VBOManagerRepo.addVBO(vbo, vertexBuffer, indexBuffer);
 };
 
 let getVBOBuffers = vbo => {

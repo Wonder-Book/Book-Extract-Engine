@@ -16,8 +16,16 @@ let generateId = maximumId => {
   (maximumId, maximumId |> mapId(maximumId => {maximumId |> succ}));
 };
 
-let createVertexBuffer = (vertices, gl) => {
-  let vertexBuffer = WebGL1.createBuffer(gl);
+let createVertexBuffer = gl => {
+  WebGL1.createBuffer(gl) |> VertexBufferVBOManagerVO.create;
+};
+
+let createIndexBuffer = gl => {
+  WebGL1.createBuffer(gl) |> IndexBufferVBOManagerVO.create;
+};
+
+let initVertexBuffer = (gl, vertices, vertexBuffer) => {
+  let vertexBuffer = VertexBufferVBOManagerVO.value(vertexBuffer);
 
   WebGL1.bindBuffer(WebGL1.getArrayBuffer(gl), vertexBuffer, gl);
 
@@ -31,8 +39,8 @@ let createVertexBuffer = (vertices, gl) => {
   vertexBuffer |> VertexBufferVBOManagerVO.create;
 };
 
-let createIndexBuffer = (indices, gl) => {
-  let indexBuffer = WebGL1.createBuffer(gl);
+let initIndexBuffer = (gl, indices, indexBuffer) => {
+  let indexBuffer = IndexBufferVBOManagerVO.value(indexBuffer);
 
   WebGL1.bindBuffer(WebGL1.getElementArrayBuffer(gl), indexBuffer, gl);
 
