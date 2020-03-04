@@ -1,1 +1,1 @@
-type canvas = option(DomExtend.htmlElement);
+type canvas = DomExtend.htmlElement;

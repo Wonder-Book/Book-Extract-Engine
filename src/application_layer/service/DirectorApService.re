@@ -1,5 +1,6 @@
 let init = contextConfigJsObj => {
   CanvasCanvasEntity.getCanvas()
+  |> OptionContainerDoService.get
   |> ResultContainerVO.bind(canvas => {
        SetWebGLContextSetWebGLContextDoService.setGl(
          contextConfigJsObj,

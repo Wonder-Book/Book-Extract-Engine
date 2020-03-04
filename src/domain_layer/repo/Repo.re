@@ -1,7 +1,7 @@
 let getCanvas = () => {
   let po = ContainerManager.getPO();
 
-  po.canvas |> OptionContainerDoService.get;
+  po.canvas;
 };
 
 let setCanvas = canvas => {

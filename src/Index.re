@@ -8,7 +8,9 @@
       
 
       module Director{
-        let init = DirectorJsAPI.init;
+        let start = DirectorJsAPI.start;
+
+let init = DirectorJsAPI.init;
 
 
       }

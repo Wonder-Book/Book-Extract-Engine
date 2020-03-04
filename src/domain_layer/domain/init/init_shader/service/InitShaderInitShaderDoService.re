@@ -14,9 +14,6 @@ let init = (): ResultContainerVO.t(unit, Js.Exn.t) => {
 
                  ContextContextEntity.initShader(vs, fs, program, gl)
                  |> ignore;
-
-                 //用于运行测试
-                 Js.log((shaderId, vs, fs));
                })
           })
      });
