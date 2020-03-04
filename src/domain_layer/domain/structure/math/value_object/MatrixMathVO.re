@@ -95,7 +95,7 @@ let buildPerspective = ((fovy, aspect, near, far), mat) => {
   let fovy = FovySceneGraphVO.value(fovy);
 
   Js.Math.sin(Js.Math._PI *. fovy /. 180. /. 2.) === 0.
-    ? ResultContainerVO.fail(Error.error("frustum should not be null"))
+    ? ResultContainerVO.failWith("frustum should not be null")
     : {
       let aspect = AspectSceneGraphVO.value(aspect);
       let near = NearSceneGraphVO.value(near);
