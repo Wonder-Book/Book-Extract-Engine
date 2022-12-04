@@ -700,8 +700,8 @@ decamelize@^1.2.0:
   resolved "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
 
 defaults@^1.0.0:
   version "1.0.3"
@@ -2773,9 +2773,9 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tiny-wonder-generate-index@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmjs.org/tiny-wonder-generate-index/-/tiny-wonder-generate-index-0.0.5.tgz#1a651905b5dc4e459b6a4a8df3574ab6c21605b2"
+tiny-wonder-generate-index@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/tiny-wonder-generate-index/-/tiny-wonder-generate-index-0.0.6.tgz#afaabfae1abb854e95e55bf72a95c8d62cb5d5b3"
   dependencies:
     bs-platform "^7.0.1"
     glob "^7.1.2"
